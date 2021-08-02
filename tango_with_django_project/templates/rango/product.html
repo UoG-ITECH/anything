@@ -1,0 +1,51 @@
+ {% extends 'rango/base.html' %}
+ {% load staticfiles %}
+
+ {% block title_block %}
+ {% if computer %}
+ {{ computer.name }}
+ {% else %}
+ Unknown Product
+ {% endif %}
+ {% endblock %}
+
+ {% block body_block %}
+ <div>
+            <h2>{{ computer.name }}</h2>
+        {% if computer %}
+            <ul>
+            {{ computer.name }}
+             
+             
+                <br/>
+             Description:
+                {{ computer.description }}
+                <br/>
+             Price:  £ {{ computer.price |floatformat:2 }}
+                <br/>
+                {% if computer.picture %}
+                <img src="{{ MEDIA_URL }}{{ computer.picture }}"
+                     width="300"
+                     height="300"
+                     alt="{{ computer.name }} picture" />
+                <br />
+                {% else %}
+                <img src="{% static pathimg %}"
+                     width="300"
+                     height="300"
+                     alt="Picture of Computer" />
+                {% endif %}
+                
+            
+            </ul>
+        {% else %}
+            <strong>There is no product under this name.</strong>
+        {% endif %}
+        </div>
+ 
+ <br>
+<hr>
+
+ 
+
+ {% endblock %}

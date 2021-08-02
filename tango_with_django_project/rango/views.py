@@ -7,33 +7,29 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from datetime import datetime
 
-from rango.models import Category, Page
-from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from rango.models import Category, Product
+from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm
 from rango.bing_search import run_query
 
 
 class IndexView(View):
     def get(self, request):
-        category_list = Category.objects.order_by('-likes')[:5]
-        page_list = Page.objects.order_by('-views')[:5]
-        context_dict = {'boldmessage': 'Crunchy, creamy, cookie, candy, cupcake!',
-                        'categories': category_list,
-                        'pages': page_list}
+        category_list = Category.objects.order_by('-name')[:5]
+        page_list = Product.objects.order_by('-name')[:5]
 
-        # request.session.set_test_cookie()
+        context_dict = {}
+        context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+        context_dict['categories'] = category_list
+        context_dict['pages'] = page_list
+
         visitor_cookie_handler(request)
 
-        return render(request, 'rango/index.html', context=context_dict)
+        response = render(request, 'rango/index.html', context=context_dict)
+        return response
 
 
 class AboutView(View):
     def get(self, request):
-        # print(request.method)
-        # print(request.user)
-        #
-        # if request.session.test_cookie_worked():
-        #     print("TEST COOKIE WORKED!")
-        #     request.session.delete_test_cookie()
         context_dict = {}
         visitor_cookie_handler(request)
         context_dict['visits'] = request.session['visits']
@@ -58,16 +54,22 @@ def search(request):
 
 class ShowCategoryView(View):
     def create_context_dict(self, category_name_slug):
+        """
+        A helper method that was created to demonstarte the power of class-based views.
+        You can reuse this method in the get() and post() methods!
+        """
         context_dict = {}
+
         try:
             category = Category.objects.get(slug=category_name_slug)
-            pages = Page.objects.filter(category=category).order_by('-views')
+            products = Product.objects.filter(category=category).order_by('-name')
 
-            context_dict['pages'] = pages
+            context_dict['products'] = products
             context_dict['category'] = category
         except Category.DoesNotExist:
-            context_dict['pages'] = None
+            context_dict['products'] = None
             context_dict['category'] = None
+
         return context_dict
 
     def get(self, request, category_name_slug):
@@ -78,10 +80,12 @@ class ShowCategoryView(View):
     def post(self, request, category_name_slug):
         context_dict = self.create_context_dict(category_name_slug)
         query = request.POST['query'].strip()
+
         if query:
             context_dict['result_list'] = run_query(query)
             context_dict['query'] = query
-        return render(request, 'rango/category.html', context=context_dict)
+
+        return render(request, 'rango/category.html', context_dict)
 
 
 class AddCategoryView(View):
@@ -101,6 +105,23 @@ class AddCategoryView(View):
             print(form.errors)
 
         return render(request, 'rango/add_category.html', {'form': form})
+
+
+class ShowComputerView(View):
+    def get(self, request, slug):
+        context_dict = {}
+
+        try:
+            computer = Product.objects.get(slug=slug)
+
+            context_dict['computer'] = computer
+
+        except Product.DoesNotExist:
+            context_dict['computer'] = computer
+
+        context_dict['pathimg'] = "images/" + str(computer.slug) + ".jpg"
+        print("images/" + str(computer.slug) + ".jpg")
+        return render(request, 'rango/product.html', context=context_dict)
 
 
 class AddPageView(View):
