@@ -11,4 +11,4 @@ venv/
 .idea
 *.pyc
 credentials.txt
-
+profile_images/
