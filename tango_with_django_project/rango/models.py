@@ -4,10 +4,8 @@ from django.template.defaultfilters import slugify
 
 
 class Category(models.Model):
-    NAME_MAX_LENGTH = 128
-    name = models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
-    views = models.IntegerField(default=0)
-    likes = models.IntegerField(default=0)
+    MAX_LEN_NAME = 128
+    name = models.CharField(max_length=MAX_LEN_NAME, unique=True)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
@@ -21,17 +19,25 @@ class Category(models.Model):
         return self.name
 
 
-class Page(models.Model):
-    TITLE_MAX_LENGTH = 128
-    URL_MAX_LENGTH = 200
+class Product(models.Model):
+    # Denotes Max length of title and description variables
+    MAX_LEN_TITLE = 128
+    MAX_LEN_DESC = 50000
+
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    title = models.CharField(max_length=TITLE_MAX_LENGTH)
-    url = models.URLField()
-    views = models.IntegerField(default=0)
+    name = models.CharField(max_length=MAX_LEN_TITLE)
+    price = models.FloatField(default=0)
+    description = models.TextField(max_length=MAX_LEN_DESC, default='')
+    slug = models.SlugField()
+    picture = models.ImageField(upload_to='product_images', blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class UserProfile(models.Model):

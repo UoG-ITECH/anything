@@ -12,9 +12,12 @@ urlpatterns = [
     path('restricted/', views.restricted, name='restricted'),
     path('goto/', views.goto_url, name='goto'),
     path('search/', views.search, name='search'),
-    path('register_profile/', views.register_profile, name='register_profile')
+    path('register_profile/', views.register_profile, name='register_profile'),
+    path('product/<slug>/', views.ShowComputerView.as_view(), name='show_computer'),
     # path('register/', views.register, name='register'),
     # path('login/', views.user_login, name='login'),
     # path('logout/', views.user_logout, name='logout'),
+
+
 
 ]
