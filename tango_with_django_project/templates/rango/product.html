@@ -1,0 +1,80 @@
+ {% extends 'rango/base.html' %}
+ {% load staticfiles %}
+
+ {% block title_block %}
+ {% if product %}
+ {{ computer.product }}
+ {% else %}
+ Unknown Product
+ {% endif %}
+ {% endblock %}
+
+ {% block body_block %}
+ <div>
+            <center><h2>{{ product.name }}</h2><center/>
+                <br><br><br>
+        {% if product %}
+            <div class="row">
+      <div class="col-6">
+        {% if product.picture %}
+                <img src="{{ MEDIA_URL }}{{ product.picture }}"
+                     width="500"
+                     height="500"
+                     alt="{{ product.name }} picture" />
+                <br />
+                {% else %}
+                <img src="{% static pathimg %}"
+                     width="300"
+                     height="300"
+                     alt="Picture of Computer" />
+                {% endif %}
+      </div>
+      <div class="col-6">
+       <ul>
+            {{ product.name }}
+                
+                <br/>
+             Description:
+                {{ product.description }}
+                <br/>
+             Price:  £ {{ product.price |floatformat:2 }}
+                <br/>
+                
+            </ul>
+      </div>
+    </div>
+        {% else %}
+            <strong>There is no product under this name.</strong>
+        {% endif %}
+        </div>
+ 
+ 
+ 
+ 
+ 
+ <br>
+<hr>
+ 
+  <div>
+     <h2> Reviews </h2>
+     <li><a href="{% url 'rango:review' product.slug %}">Leave a review!</a></li>
+     {% if product.reviews.all%}
+     {% for review in product.reviews.all %}
+     Review by: {{ review.user }}
+     <br>
+     Review on: {{ review.date }}
+     <br>
+     Rating: {{ review.rating }} / 10
+     <br>
+     {{ review.content }}
+     <br>
+     <hr>
+     {% endfor %}
+     {% else %}
+     There are no reviews yet!
+     {% endif %}
+ </div>
+
+ 
+
+ {% endblock %}
