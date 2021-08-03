@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from datetime import datetime
 
-from rango.models import Category, Page
+from rango.models import Category, Page, UserProfile
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from rango.bing_search import run_query
 
@@ -142,6 +142,18 @@ class AddPageView(View):
 
         context_dict = {'form': form, 'category': category}
         return render(request, 'rango/add_page.html', context=context_dict)
+
+
+class ProfileView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        profile = request.user
+        print(profile)
+        return render(request, 'rango/profile.html', {'profile': profile})
+
+    # TODO: functionality to modify profile
+    # @method_decorator(login_required)
+    # def post(self, request):
 
 
 def goto_url(request):

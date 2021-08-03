@@ -37,6 +37,7 @@ LOGIN_URL = 'rango:login'
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango',
-    'registration'
 ]
 
 MIDDLEWARE = [
@@ -62,6 +62,7 @@ MIDDLEWARE = [
 # About Registration
 REGISTRATION_OPEN = True
 REGISTRATION_AUTO_LOGIN = True
+ACCOUNT_ACTIVATION_DAYS = 1
 LOGIN_REDIRECT_URL = 'rango:index'
 LOGIN_URL = 'auth_login'
 
