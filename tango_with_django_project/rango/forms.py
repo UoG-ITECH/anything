@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from rango.models import Category, UserProfile, Product
+from django.core.validators import MinValueValidator, MaxValueValidator
+from rango.models import Category, UserProfile, Product, Review
+
+
 
 
 class CategoryForm(forms.ModelForm):
@@ -19,10 +22,7 @@ class ProductForm(forms.ModelForm):
     MAX_LEN_URL = 200
     name = forms.CharField(max_length=Product.MAX_LEN_TITLE,
                            help_text="Please enter the Product name.")
-
-    ram = forms.IntegerField(help_text="Please enter Product RAM")
     price = forms.FloatField(help_text="Please enter Product price")
-
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     description = forms.CharField(widget=forms.Textarea, help_text="Enter Product description",
                                   max_length=Product.MAX_LEN_DESC)
@@ -31,16 +31,7 @@ class ProductForm(forms.ModelForm):
         model = Product
         exclude = ('category', 'slug')
 
-    def clean(self):
-        cleaned_data = self.cleaned_data
-        url = cleaned_data.get('url')
 
-        # add http:// if not present
-        if url and not url.startswith('http://'):
-            url = f'http://{url}'
-            cleaned_data['url'] = url
-
-        return cleaned_data
 
 
 class UserForm(forms.ModelForm):
@@ -55,3 +46,14 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('website', 'picture',)
+
+
+class ReviewForm(forms.ModelForm):
+    rating = forms.IntegerField(validators=[MinValueValidator(0),
+                                            MaxValueValidator(10)], help_text="Enter Rating")
+    content = forms.CharField(widget=forms.Textarea, help_text="Enter Product description",
+                              max_length=Review.MAX_LEN_CONTENT)
+
+    class Meta:
+        model = Review
+        exclude = ('user', 'product', 'date')

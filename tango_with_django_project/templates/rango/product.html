@@ -2,8 +2,8 @@
  {% load staticfiles %}
 
  {% block title_block %}
- {% if computer %}
- {{ computer.name }}
+ {% if product %}
+ {{ computer.product }}
  {% else %}
  Unknown Product
  {% endif %}
@@ -11,23 +11,23 @@
 
  {% block body_block %}
  <div>
-            <h2>{{ computer.name }}</h2>
-        {% if computer %}
+            <h2>{{ product.name }}</h2>
+        {% if product %}
             <ul>
-            {{ computer.name }}
+            {{ product.name }}
              
              
                 <br/>
              Description:
-                {{ computer.description }}
+                {{ product.description }}
                 <br/>
-             Price:  £ {{ computer.price |floatformat:2 }}
+             Price:  £ {{ product.price |floatformat:2 }}
                 <br/>
-                {% if computer.picture %}
-                <img src="{{ MEDIA_URL }}{{ computer.picture }}"
+                {% if product.picture %}
+                <img src="{{ MEDIA_URL }}{{ product.picture }}"
                      width="300"
                      height="300"
-                     alt="{{ computer.name }} picture" />
+                     alt="{{ product.name }} picture" />
                 <br />
                 {% else %}
                 <img src="{% static pathimg %}"
@@ -45,6 +45,26 @@
  
  <br>
 <hr>
+ 
+  <div>
+     <h2> Reviews </h2>
+     <li><a href="{% url 'rango:review' product.slug %}">Leave a review!</a></li>
+     {% if product.reviews.all%}
+     {% for review in product.reviews.all %}
+     Review by: {{ review.user }}
+     <br>
+     Review on: {{ review.date }}
+     <br>
+     Rating: {{ review.rating }} / 10
+     <br>
+     {{ review.content }}
+     <br>
+     <hr>
+     {% endfor %}
+     {% else %}
+     There are no reviews yet!
+     {% endif %}
+ </div>
 
  
 
