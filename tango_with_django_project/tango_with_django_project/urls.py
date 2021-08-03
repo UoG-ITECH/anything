@@ -29,7 +29,7 @@ class MyRegistrationView(RegistrationView):
 
 urlpatterns = [
                   path('', views.IndexView.as_view(), name='index'),
-                  path('rango/', include('rango.urls')),
+                  path('any/', include('rango.urls')),
                   path('admin/', admin.site.urls),
                   path('accounts/', include('registration.backends.simple.urls')),
                   path('accounts/register', MyRegistrationView.as_view(), name='registration_register')

@@ -5,6 +5,18 @@
     Homepage
 {% endblock %}
 
+{% block masthead_block%}
+<!-- Masthead-->
+<header class="masthead">
+    <div class="container">
+        <div class="masthead-subheading">Welcome To ANYTHING!</div>
+        <div class="masthead-heading text-uppercase">Which laptop suits you best?</div>
+        <a class="btn btn-primary btn-xl text-uppercase" href="#services">FIND OUT</a>
+    </div>
+</header>
+{% endblock %}
+
+
 {% block body_block%}
 <h1>Rango says...</h1>
 <div>
@@ -62,9 +74,10 @@
 </div>
 
 
-
-
-
-
 <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
+{% endblock %}
+
+{% block script_block%}
+<!-- Core theme JS-->
+<script src="{% static 'js/menu-scripts.js' %}"></script>
 {% endblock %}

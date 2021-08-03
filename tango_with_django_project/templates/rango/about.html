@@ -17,3 +17,8 @@
     <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat." />
 {% endblock %}
 
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
+{% endblock %}
