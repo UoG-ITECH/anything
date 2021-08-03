@@ -11,22 +11,15 @@
 
  {% block body_block %}
  <div>
-            <h2>{{ product.name }}</h2>
+            <center><h2>{{ product.name }}</h2><center/>
+                <br><br><br>
         {% if product %}
-            <ul>
-            {{ product.name }}
-             
-             
-                <br/>
-             Description:
-                {{ product.description }}
-                <br/>
-             Price:  £ {{ product.price |floatformat:2 }}
-                <br/>
-                {% if product.picture %}
+            <div class="row">
+      <div class="col-6">
+        {% if product.picture %}
                 <img src="{{ MEDIA_URL }}{{ product.picture }}"
-                     width="300"
-                     height="300"
+                     width="500"
+                     height="500"
                      alt="{{ product.name }} picture" />
                 <br />
                 {% else %}
@@ -35,13 +28,29 @@
                      height="300"
                      alt="Picture of Computer" />
                 {% endif %}
+      </div>
+      <div class="col-6">
+       <ul>
+            {{ product.name }}
                 
-            
+                <br/>
+             Description:
+                {{ product.description }}
+                <br/>
+             Price:  £ {{ product.price |floatformat:2 }}
+                <br/>
+                
             </ul>
+      </div>
+    </div>
         {% else %}
             <strong>There is no product under this name.</strong>
         {% endif %}
         </div>
+ 
+ 
+ 
+ 
  
  <br>
 <hr>

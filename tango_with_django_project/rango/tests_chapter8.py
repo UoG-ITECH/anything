@@ -84,7 +84,7 @@ class Chapter8TemplateTests(TestCase):
 
         templates = ['rango/about.html',
                      'rango/add_category.html',
-                     'rango/add_page.html',
+                     'rango/add_product.html',
                      'rango/category.html',
                      'rango/index.html', ]
 
@@ -112,7 +112,7 @@ class Chapter8TemplateTests(TestCase):
             reverse('rango:add_page', kwargs={'category_name_slug': 'python'}): {
                 'full_title_pattern': r'<title>(\s*|\n*)Rango(\s*|\n*)-(\s*|\n*)Add a Page(\s*|\n*)</title>',
                 'block_title_pattern': r'{% block title_block %}(\s*|\n*)Add a Page(\s*|\n*){% (endblock|endblock title_block) %}',
-                'template_filename': 'add_page.html'},
+                'template_filename': 'add_product.html'},
             reverse('rango:show_category', kwargs={'category_name_slug': 'python'}): {
                 'full_title_pattern': r'<title>(\s*|\n*)Rango(\s*|\n*)-(\s*|\n*)Python(\s*|\n*)</title>',
                 'block_title_pattern': r'{% block title_block %}(\s*|\n*){% if category %}(\s*|\n*){{ category.name }}(\s*|\n*){% else %}(\s*|\n*)Unknown Category(\s*|\n*){% endif %}(\s*|\n*){% (endblock|endblock title_block) %}',

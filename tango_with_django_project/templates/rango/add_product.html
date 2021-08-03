@@ -1,0 +1,41 @@
+{% extends "rango/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Add Page{% endblock %}
+{% block body_block %}
+
+        <h1 class="jumbotron-heading">Add a Product to the {{category.name}} Category</h1>
+    <br />
+<br />
+<br />
+
+<div class="container">
+    <div class="row">
+        <form role="form" id="page_form" method="post" enctype="multipart/form-data"
+              action="{% url 'rango:add_product' category.slug %}">
+            {% csrf_token %}
+            
+      
+            
+             <div class="row">
+      <div class="col-6">
+        {{ form.name|as_crispy_field}}
+      </div>
+      <div class="col-6">
+       {{ form.price|as_crispy_field}}
+      </div>
+    </div>
+            
+            {{ form.description|as_crispy_field}}
+            {{ form.picture|as_crispy_field}}
+            <br />
+            <div class="p-2"></div>
+            
+            <br />
+            <button class="btn btn-primary" type="submit" name="submit">
+                Add Page
+            </button>
+            <div class="p-5"></div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -18,13 +18,7 @@ Unknown Category
 		<div>
 			<strong id="like_count">{{ category.likes }}</strong> likes
 			{% if user.is_authenticated %}
-			<button id="like_btn"
-					data-categoryid="{{ category.id }}"
-					class="btn btn-primary btn-sm"
-					type="button">
-				<span data-feather="thumbs-up"></span>
-				Like Category
-			</button>
+			
 			{% endif %}
 		</div>
 	</div>
@@ -45,7 +39,7 @@ Unknown Category
 {% endif %}
 {% if user.is_authenticated %}
 
- <a href="{% url 'rango:add_page' category.slug %}">Add Page</a> <br />
+
  
 <div>
  <form class="form-inline"
@@ -96,7 +90,7 @@ Unknown Category
 	{% endif %}
 </div>
 </div>
-<a href="{% url 'rango:add_page' category.slug %}">Add Page</a> <br/>
+<a href="{% url 'rango:add_product' category.slug %}">Add Product</a> <br/>
 {% endif %}
 {% else %}
 The specified category does not exist.

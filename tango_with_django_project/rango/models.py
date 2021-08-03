@@ -25,7 +25,6 @@ class Product(models.Model):
     MAX_LEN_TITLE = 128
     MAX_LEN_DESC = 50000
 
-
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=MAX_LEN_TITLE)
     price = models.FloatField(default=0)
@@ -51,16 +50,26 @@ class UserProfile(models.Model):
         return self.user.username
 
 
+# Handles customer reviews
 class Review(models.Model):
+    '''
+    Rating and content are set by the user
+    Product is set through slug
+    Date is set automatically on posting
+    User is obtained from request
+    '''
     MAX_LEN_CONTENT = 50000
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product,related_name='reviews', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
     rating = models.IntegerField(validators=[MinValueValidator(0),
-                                       MaxValueValidator(10)])
+                                             MaxValueValidator(10)])
     content = models.TextField(max_length=MAX_LEN_CONTENT, default='')
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.user.username + " Reviewed " + self.product.name + " " + str(self.rating) + "/10" \
                + " Saying: " + self.content
+
+
+
