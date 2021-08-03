@@ -1,0 +1,34 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Register
+{% endblock %}
+
+{% block body_block %}
+<container style="display:flex; justify-content:center; align-items: center; margin-bottom: 20px;">
+    <h1 class="row text-uppercase" style="text-align: center;">user profile zone</h1>
+</container>
+
+<div class="row">
+    <div class="col-6 col-md-4 col-lg-6 ">
+        <h3>Hello, {{ user.username }}</h3>
+
+        <p>{{ user.first_name }}</p>
+        <p>{{ user.last_name }}</p>
+        <p>{{ user.email }}</p>
+<!--        TODO: get date, pictures from user profile and let user to modify -->
+        <p>{{ profile.picture}}</p>
+        <p>{{ profile.date }}</p>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
+{% endblock %}

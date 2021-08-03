@@ -7,7 +7,8 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from datetime import datetime
 
-from rango.models import Category, Product
+
+from rango.models import Category, Product, UserProfile
 from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm
 from rango.bing_search import run_query
 
@@ -54,12 +55,7 @@ def search(request):
 
 class ShowCategoryView(View):
     def create_context_dict(self, category_name_slug):
-        """
-        A helper method that was created to demonstarte the power of class-based views.
-        You can reuse this method in the get() and post() methods!
-        """
         context_dict = {}
-
         try:
             category = Category.objects.get(slug=category_name_slug)
             products = Product.objects.filter(category=category).order_by('-name')
@@ -126,10 +122,6 @@ class ShowProductView(View):
 
 class AddProductView(View):
     def get_category_name(self, category_name_slug):
-        """
-        A helper method that was created to demonstrate the power of class-based views.
-        You can reuse this method in the get() and post() methods!
-        """
         try:
             category = Category.objects.get(slug=category_name_slug)
         except Category.DoesNotExist:
@@ -174,6 +166,18 @@ class AddProductView(View):
 
         context_dict = {'form': form, 'category': category}
         return render(request, 'rango/add_product.html', context=context_dict)
+
+
+class ProfileView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        profile = request.user
+        print(profile)
+        return render(request, 'rango/profile.html', {'profile': profile})
+
+    # TODO: functionality to modify profile
+    # @method_decorator(login_required)
+    # def post(self, request):
 
 
 def goto_url(request):
