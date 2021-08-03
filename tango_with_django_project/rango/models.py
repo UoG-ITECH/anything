@@ -72,4 +72,12 @@ class Review(models.Model):
                + " Saying: " + self.content
 
 
-
+class DummyReview(models.Model):
+    '''
+    Dummy review class used to populate the page with existing reviews
+    '''
+    dummy_user = models.TextField()
+    dummy_product = models.ForeignKey(Product, related_name='reviews_dummy', on_delete=models.CASCADE)
+    dummy_rating = models.IntegerField()
+    dummy_content= models.TextField()
+    dummy_date = models.TextField()
