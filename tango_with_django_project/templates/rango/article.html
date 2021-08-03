@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block body_block%}
-<h1>Rango says...</h1>
 <div>
     {% if user.is_authenticated %}
         howdy {{ user.username }}!
@@ -17,35 +16,37 @@
     <strong>{{ boldmessage }}</strong><br />
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-9">
-            <div class="card mb-6">
-                <div class="card-body">
-                    <h2>Articles registered</h2>
-                    <p class="card-text">
-                        {% if articles %}
-                        <ul class="list-group">
-                            {% for article in articles %}
-                            <li class="list-group-item">
-                                <h3>Title</h3>
-                                {{ article.title }}
-                            </li>
-                            <li class="list-group-item">
-                                <h4>Content</h4>
-                                {{ article.content }}
-                            {% endfor %}
-                        </ul>
-                        {% else %}
-                            <strong>There are no articles present.</strong>
-                        {% endif %}
-                    </p>
-                </div>
-            </div>
-            {% if user.is_authenticated %}
-            <a class="btn btn-primary" href="{% url 'rango:add_article' %}" role="button">Add a New Article</a>
-            {% else %}
-            {% endif %}
+
+<div class="row h-100 justify-content-center align-items-center">
+    <div class="col-md-7">
+        <h5>Articles Registered</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'rango:add_article' %}">Add a New Article</a>
+            <table class="table table-sm">
+                    <tr>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Date</th>
+                        <th>Author</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+
+                    {% for article in articles %}
+
+                        <tr>
+                            <td>{{ article.title }}</td>
+                            <td>{{ article.content }}</td>
+                            <td>{{ article.date }}</td>
+                            <td>{{ article.author }}</td>
+                            <td><a class="btn btn-sm btn-info" href="{% url 'rango:edit_article' article.id %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'rango:delete_article' article.id %}">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+            </table>
         </div>
+    </div>
+</div>
 
 {% endblock %}

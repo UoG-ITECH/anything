@@ -274,28 +274,34 @@ def add_article(request):
             if article_form.is_valid():
                 data = article_form.save()
                 data.save()
-                return redirect(reverse('rango:index'))
+                return redirect(reverse('/rango/article/'))
         else:
             form = ArticleForm()
         return render(request, 'rango/add_article.html', {'form': form})
     return redirect(reverse('rango:index'))
 
-def edit_article(request):
-    if request.user.is_authenticated:
-        if request.user == Article.author:
-            if request.method == "POST":
-                form = ArticleForm(request.POST)
-                if form.is_valid():
-                    data = form.save()
-                    data.save()
-                    return redirect(reverse("rango:index"))
-            else:
-                form = ArticleForm()
-            return render(request, 'rango/edit_article.html', {'form': form})
-        else:
-            return redirect(reverse("rango:index"))
-    else:
-        return redirect(reverse('rango:index'))
+def edit_article(request, pk):
+    article = Article.objects.get(id=pk)
+    form = ArticleForm(instance=article)
+    
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('/rango/article/')
+    
+    context = {'form':form}
+    return render(request, 'rango/edit_article.html', context)
+
+def delete_article(request, pk):
+    article = Article.objects.get(id=pk)
+    if request.method == "POST":
+        article.delete()
+        return redirect('/rango/article/')
+    context = {'item':article}
+    return render(request, 'rango/delete_article.html', context)
+
 
 def article_show(request):
     article_list = Article.objects.all()

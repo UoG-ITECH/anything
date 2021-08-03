@@ -8,38 +8,21 @@
 
 {% block body_block%}
     <h1>Add an Article</h1>
-    <div>
-        <form action="{% url 'rango:add_article' %}" method="post" id="article_form">
-            {% csrf_token %}
-            <div class="row h-100 justify-content-center align-items-center">
-                <div class="col-3">
-                    {{form.title|as_crispy_field}}
-                </div>
+
+
+
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="card card-body">
+    
+                <form action="{% url 'rango:add_article' %}" method="post" id="article_form">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+    
             </div>
-            <div class="row h-100 justify-content-center align-items-center">
-                <div class="col-4">
-                    {{form.content|as_crispy_field}}
-                </div>
-            </div>
-            <div class="row h-100 justify-content-center align-items-center">
-                <div class="col-4">
-                    {{form.date|as_crispy_field}}
-                </div>
-            </div>
-            <div class="row h-100 justify-content-center align-items-center">
-                <div class="col-4">
-                    {{form.author|as_crispy_field}}
-                </div>
-            </div>
-            <div class="row h-100 justify-content-center align-items-center">
-                <div class="col-4">
-                    {{form.picture|as_crispy_field}}
-                </div>
-            </div>           
-            <div class="row h-100 justify-content-center align-items-center">
-                <input type="submit" name="submit" value="Add an Article" />
-            </div>  
-            
-        </form>
+        </div>
     </div>
 {% endblock %}
