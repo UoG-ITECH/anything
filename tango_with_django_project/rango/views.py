@@ -8,19 +8,19 @@ from django.views import View
 from datetime import datetime
 
 from rango.models import Category, Product
-from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm
+from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm
 from rango.bing_search import run_query
 
 
 class IndexView(View):
     def get(self, request):
         category_list = Category.objects.order_by('-name')[:5]
-        page_list = Product.objects.order_by('-name')[:5]
+        product_list = Product.objects.order_by('-name')[:5]
 
         context_dict = {}
         context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
         context_dict['categories'] = category_list
-        context_dict['pages'] = page_list
+        context_dict['products'] = product_list
 
         visitor_cookie_handler(request)
 
@@ -107,25 +107,29 @@ class AddCategoryView(View):
         return render(request, 'rango/add_category.html', {'form': form})
 
 
-class ShowComputerView(View):
+class ShowProductView(View):
     def get(self, request, slug):
         context_dict = {}
 
         try:
-            computer = Product.objects.get(slug=slug)
+            product = Product.objects.get(slug=slug)
 
-            context_dict['computer'] = computer
+            context_dict['product'] = product
 
         except Product.DoesNotExist:
-            context_dict['computer'] = computer
+            context_dict['product'] = product
 
-        context_dict['pathimg'] = "images/" + str(computer.slug) + ".jpg"
-        print("images/" + str(computer.slug) + ".jpg")
+        context_dict['pathimg'] = "images/" + str(product.slug) + ".jpg"
+        print("images/" + str(product.slug) + ".jpg")
         return render(request, 'rango/product.html', context=context_dict)
 
 
-class AddPageView(View):
+class AddProductView(View):
     def get_category_name(self, category_name_slug):
+        """
+        A helper method that was created to demonstrate the power of class-based views.
+        You can reuse this method in the get() and post() methods!
+        """
         try:
             category = Category.objects.get(slug=category_name_slug)
         except Category.DoesNotExist:
@@ -135,7 +139,7 @@ class AddPageView(View):
 
     @method_decorator(login_required)
     def get(self, request, category_name_slug):
-        form = PageForm()
+        form = ProductForm()
         category = self.get_category_name(category_name_slug)
 
         if category is None:
@@ -146,15 +150,22 @@ class AddPageView(View):
 
     @method_decorator(login_required)
     def post(self, request, category_name_slug):
-        form = PageForm(request.POST)
+        form = ProductForm(request.POST)
         category = self.get_category_name(category_name_slug)
+
+        if category is None:
+            return redirect(reverse('rango:index'))
 
         if form.is_valid():
             if category:
-                page = form.save(commit=False)
-                page.category = category
-                page.views = 0
-                page.save()
+                product = form.save(commit=False)
+                product.category = category
+                product.views = 0
+                if 'picture' in request.FILES:
+                    product.picture = request.FILES['picture']
+                product.save()
+                print(product)
+
                 return redirect(reverse('rango:show_category',
                                         kwargs={'category_name_slug':
                                                     category_name_slug}))
@@ -251,6 +262,39 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'rango/login.html')
+
+
+class AddReviewView(View):
+
+    @method_decorator(login_required)
+    def get(self, request, slug):
+        form = ReviewForm()
+        product = Product.objects.get(slug=slug)
+
+        if product is None:
+            return redirect(reverse('rango:index'))
+
+        context_dict = {'form': form, 'product': product}
+        return render(request, 'rango/review.html', context=context_dict)
+
+    def post(self, request, slug):
+        form = ReviewForm(request.POST)
+        product = Product.objects.get(slug=slug)
+
+        if product is None:
+            return redirect(reverse('rango:index'))
+        if form.is_valid():
+            if product:
+                review = form.save(commit=False)
+                review.product = product
+                review.user = request.user
+                review.save()
+                return redirect(reverse('rango:index'))
+        else:
+            print(form.errors)
+
+        context_dict = {'form': form, 'product': product}
+        return render(request, 'rango/review.html', context=context_dict)
 
 
 @login_required

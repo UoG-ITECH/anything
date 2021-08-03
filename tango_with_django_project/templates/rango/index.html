@@ -43,16 +43,16 @@
         <div class="col-md-6">
             <div class="card mb-6">
                 <div class="card-body">
-                    <h2>Most Viewed Pages</h2>
+                    <h2>Hot Products!</h2>
                     <p class="card-text">
-                        {% if pages %}
+                        {% if products %}
                         <ul class="list-group">
-                            {% for page in pages %}
-                                <li class="list-group-item"><a href="{% url 'rango:show_computer' page.slug %}">{{ page.name }}</a></li>
+                            {% for product in products %}
+                                <li class="list-group-item"><a href="{% url 'rango:show_computer' product.slug %}">{{ product.name }}</a></li>
                             {% endfor %}
                         </ul>
                         {% else %}
-                            <strong>There are no pages present.</strong>
+                            <strong>There are no products present.</strong>
                         {% endif %}
                     </p>
                 </div>
