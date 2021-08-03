@@ -22,10 +22,13 @@ class ProductForm(forms.ModelForm):
     MAX_LEN_URL = 200
     name = forms.CharField(max_length=Product.MAX_LEN_TITLE,
                            help_text="Please enter the Product name.")
-    price = forms.FloatField(help_text="Please enter Product price")
+    price = forms.FloatField(help_text="Please enter Product price",
+                             validators=[MinValueValidator(0)]
+                             )
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     description = forms.CharField(widget=forms.Textarea, help_text="Enter Product description",
                                   max_length=Product.MAX_LEN_DESC)
+    picture = forms.ImageField(help_text="Submit a picture of the product")
 
     class Meta:
         model = Product
@@ -50,7 +53,7 @@ class UserProfileForm(forms.ModelForm):
 
 class ReviewForm(forms.ModelForm):
     rating = forms.IntegerField(validators=[MinValueValidator(0),
-                                            MaxValueValidator(10)], help_text="Enter Rating")
+                                            MaxValueValidator(10)], help_text="Enter Rating out of 10")
     content = forms.CharField(widget=forms.Textarea, help_text="Enter Product description",
                               max_length=Review.MAX_LEN_CONTENT)
 

@@ -27,18 +27,15 @@ def populate():
     business = [
         {'name': 'Asus 2',
          'url': 'http://docs.python.org/3/tutorial/',
-         'ram': 12,
          'description': desc,
          'price': 600.50},
         {'name': 'Asus 3',
          'url': 'http://www.greenteapress.com/thinkpython/',
-         'ram': 13,
          'description': desc,
          'price': 560.50,
          },
         {'name': 'Asus 5',
          'url': 'http://www.korokithakis.net/tutorials/python/',
-         'ram': 18,
          'description': desc,
          'price': 480.50
          }]
@@ -46,17 +43,15 @@ def populate():
     portable = [
         {'name': 'Asus 6',
          'url': 'http://docs.python.org/3/tutorial/',
-         'ram': 12,'description': desc,
+         'description': desc,
          'price': 800.50 },
         {'name': 'Asus 7',
          'url': 'http://www.greenteapress.com/thinkpython/',
-         'ram': 13,
          'description': desc,
          'price': 600.50
          },
         {'name': 'Asus 8',
          'url': 'http://www.korokithakis.net/tutorials/python/',
-         'ram': 18,
          'description': desc,
          'price': 300.50
          }
@@ -65,19 +60,16 @@ def populate():
     gaming = [
         {'name': 'Asus 9',
          'url': 'http://docs.python.org/3/tutorial/',
-         'ram': 12,
          'description': desc,
          'price': 1600.50
          },
         {'name': 'Asus 10',
          'url': 'http://www.greenteapress.com/thinkpython/',
-         'ram': 13,
          'description': desc,
          'price': 1000.50
          },
         {'name': 'Asus 11',
          'url': 'http://www.korokithakis.net/tutorials/python/',
-         'ram': 18,
          'description': desc,
          'price': 800.50
          }]
@@ -86,13 +78,15 @@ def populate():
             'Business': {'pages': business},
             'Portable': {'pages': portable}}
 
+
+
     # The code below goes through the cats dictionary, then adds each category,
     # and then adds all the associated pages for that category.
 
     for cat, cat_data in cats.items():
         c = add_cat(cat)
         for p in cat_data['pages']:
-            add_product(c, p['name'], p['url'], p['ram'], p['price'], p['description'])
+            add_product(c, p['name'], p['url'],  p['price'], p['description'])
 
     # Print out the categories we have added.
     for c in Category.objects.all():
@@ -100,10 +94,10 @@ def populate():
             print(f'- {c}: {p}')
 
 
-def add_product(cat, name, url, ram, price, description):
+def add_product(cat, name, url,  price, description):
     p = Product.objects.get_or_create(category=cat, name=name)[0]
     p.url = url
-    p.ram = ram
+
     p.price = price
     p.description = description
 

@@ -146,7 +146,7 @@ class AddProductView(View):
             return redirect(reverse('rango:index'))
 
         context_dict = {'form': form, 'category': category}
-        return render(request, 'rango/add_page.html', context_dict)
+        return render(request, 'rango/add_product.html', context_dict)
 
     @method_decorator(login_required)
     def post(self, request, category_name_slug):
@@ -173,7 +173,7 @@ class AddProductView(View):
             print(form.errors)
 
         context_dict = {'form': form, 'category': category}
-        return render(request, 'rango/add_page.html', context=context_dict)
+        return render(request, 'rango/add_product.html', context=context_dict)
 
 
 def goto_url(request):

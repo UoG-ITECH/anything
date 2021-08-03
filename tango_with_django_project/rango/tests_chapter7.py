@@ -220,8 +220,8 @@ class Chapter7PageFormAncillaryTests(TestCase):
         """
         populate()
         response = self.client.get(reverse('rango:add_page', kwargs={'category_name_slug': 'python'}))
-        self.assertTemplateUsed(response, 'rango/add_page.html',
-                                f"{FAILURE_HEADER}The add_page.html template is not used for the add_page() view. The specification requires this.{FAILURE_FOOTER}")
+        self.assertTemplateUsed(response, 'rango/add_product.html',
+                                f"{FAILURE_HEADER}The add_product.html template is not used for the add_page() view. The specification requires this.{FAILURE_FOOTER}")
 
     def test_add_page_form_response(self):
         """
@@ -235,7 +235,7 @@ class Chapter7PageFormAncillaryTests(TestCase):
         self.assertTrue('<form' in content,
                         f"{FAILURE_HEADER}We couldn't find a <form> element in the response for adding a page.{FAILURE_FOOTER}")
         self.assertTrue('action="/rango/category/django/add_page/"' in content,
-                        f"{FAILURE_HEADER}We couldn't find the correct action URL for adding a page in your add_page.html template. We expected to see 'action=\"/rango/django/add_page/\"' when adding a page to the 'python' category.{FAILURE_FOOTER}")
+                        f"{FAILURE_HEADER}We couldn't find the correct action URL for adding a page in your add_product.html template. We expected to see 'action=\"/rango/django/add_page/\"' when adding a page to the 'python' category.{FAILURE_FOOTER}")
 
     def test_add_page_bad_category(self):
         """
