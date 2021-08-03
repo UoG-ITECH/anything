@@ -28,7 +28,7 @@ class ProductForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     description = forms.CharField(widget=forms.Textarea, help_text="Enter Product description",
                                   max_length=Product.MAX_LEN_DESC)
-    picture = forms.ImageField(help_text="Submit a picture of the product")
+    picture = forms.ImageField(help_text="Submit a picture of the product",required=False)
 
     class Meta:
         model = Product
@@ -42,7 +42,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password',)
+        fields = ('username', 'first_name', 'last_name', 'email', 'password',)
 
 
 class UserProfileForm(forms.ModelForm):
