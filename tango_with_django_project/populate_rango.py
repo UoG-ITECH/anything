@@ -7,7 +7,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 
 django.setup()
-from rango.models import Category, Product
+from rango.models import Category, Product, DummyReview
 
 
 def populate():
@@ -110,6 +110,15 @@ def add_cat(name):
 
     c.save()
     return c
+
+def add_review(user, product , rating, content, date, cat):
+    p = DummyReview.objects.get_or_create(dummy_date=date)[0]
+    p.dummy_product = Product.objects.get_or_create(category=cat, name=product)[0]
+    p.dummy_user=user
+    p.dummy_rating=rating
+    p.dummy_content = content
+
+
 
 
 if __name__ == '__main__':
