@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from datetime import datetime
 
-from rango.models import Category, Page
+from rango.models import Category, Page, Article
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm, ArticleForm, StoreForm
 from rango.bing_search import run_query
 
@@ -279,6 +279,31 @@ def add_article(request):
             form = ArticleForm()
         return render(request, 'rango/add_article.html', {'form': form})
     return redirect(reverse('rango:index'))
+
+def edit_article(request):
+    if request.user.is_authenticated:
+        if request.user == Article.author:
+            if request.method == "POST":
+                form = ArticleForm(request.POST)
+                if form.is_valid():
+                    data = form.save()
+                    data.save()
+                    return redirect(reverse("rango:index"))
+            else:
+                form = ArticleForm()
+            return render(request, 'rango/edit_article.html', {'form': form})
+        else:
+            return redirect(reverse("rango:index"))
+    else:
+        return redirect(reverse('rango:index'))
+
+def article_show(request):
+    article_list = Article.objects.all()
+    context_dict = {}
+    context_dict['articles'] = article_list
+    
+    return render(request, 'rango/article.html',context=context_dict)                   
+                
 
 def add_store(request):
     if request.user.is_authenticated:

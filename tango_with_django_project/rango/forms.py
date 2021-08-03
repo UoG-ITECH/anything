@@ -51,10 +51,6 @@ class UserProfileForm(forms.ModelForm):
         fields = ('website', 'picture',)
 
 class ArticleForm(forms.ModelForm):
-    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Title', 'style': 'width: 300px;', 'class': 'form-control'}))
-    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Content', 'style': 'width: 300px;', 'class': 'form-control'}))
-    date = forms.DateInput(attrs={'placeholder': 'Content', 'style': 'width: 300px;', 'class': 'form-control'})
-    picture = forms.ImageField()
     class Meta:
         model = Article
         fields = ('title', 'content', 'date', 'author', 'picture',)
