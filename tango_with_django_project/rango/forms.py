@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from rango.models import Page, Category, UserProfile
+from rango.models import Page, Category, UserProfile, Article, Store
 
 
 class CategoryForm(forms.ModelForm):
@@ -49,3 +49,20 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('website', 'picture',)
+
+class ArticleForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Title', 'style': 'width: 300px;', 'class': 'form-control'}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Content', 'style': 'width: 300px;', 'class': 'form-control'}))
+    date = forms.DateInput(attrs={'placeholder': 'Content', 'style': 'width: 300px;', 'class': 'form-control'})
+    picture = forms.ImageField()
+    class Meta:
+        model = Article
+        fields = ('title', 'content', 'date', 'author', 'picture',)
+
+class StoreForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name', 'style': 'width: 300px;', 'class': 'form-control'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'style': 'width: 300px;', 'class': 'form-control'}))
+    
+    class Meta:
+        model = Store
+        fields = ('name', 'email', 'slug', 'ratings',)

@@ -8,7 +8,7 @@ from django.views import View
 from datetime import datetime
 
 from rango.models import Category, Page
-from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm, ArticleForm, StoreForm
 from rango.bing_search import run_query
 
 
@@ -265,3 +265,33 @@ def visitor_cookie_handler(request):
         request.session['last_visit'] = last_visit_cookie
 
     request.session['visits'] = visits
+
+def add_article(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            article_form = ArticleForm(request.POST)
+            
+            if article_form.is_valid():
+                data = article_form.save()
+                data.save()
+                return redirect(reverse('rango:index'))
+        else:
+            form = ArticleForm()
+        return render(request, 'rango/add_article.html', {'form': form})
+    return redirect(reverse('rango:index'))
+
+def add_store(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            store_form = StoreForm(request.POST)
+            
+            if store_form.is_valid():
+                data = store_form.save()
+                data.save()
+                return redirect(reverse('rango:index'))
+        
+        else:
+            form = StoreForm()
+        return render(request, 'rango/add_store.html', {'form': form})
+    return redirect(reverse('rango:index'))
+                

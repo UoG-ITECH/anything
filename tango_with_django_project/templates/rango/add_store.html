@@ -1,0 +1,24 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Add a Store
+{% endblock %}
+
+{% block body_block%}
+    <h1>Add a Store</h1>
+    <div>
+        <form action="{% url 'rango:add_store' %}" method="post" id="store_form">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" name="submit" value="Add a Store" />
+        </form>
+    </div>
+{% endblock %}
