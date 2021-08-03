@@ -24,6 +24,7 @@
 
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
 </head>
 <body id="page-top">
 <!-- Navigation-->
@@ -39,15 +40,16 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:index' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:about' %}">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:search' %}"><i class="fas fa-search"></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'rango:search' %}"><i class="far fa-heart"></i></a></li>
+                <li class="nav-item"><a class="nav-link"><i class="far fa-heart"></i></a></li>
             {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:restricted' %}">Restricted Page</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'any:index' %}"><i class="fas fa-sign-out-alt"></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:add_category' %}">Add a New Category</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change your Password</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'rango:profile' %}" ><i class="far fa-user"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'rango:index' %}"><i class="fas fa-sign-out-alt"></i></a></li>
             {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}"><i class="far fa-user"></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'rango:register' %}"><i class="far fa-user"></i></a></li>
+<!--                <li class="nav-item"><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>-->
             {% endif %}
             </ul>
         </div>
@@ -68,7 +70,7 @@
 <!--            </div>-->
 <!--        </nav>-->
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4" style="margin-top:8rem;">
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4" style="margin-top:8rem;">
         {% block body_block%}
         {% endblock %}
             <footer>
