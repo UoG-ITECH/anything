@@ -1,0 +1,31 @@
+{% extends 'rango/base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Delete an Article
+{% endblock %}
+
+{% block body_block%}
+
+<br>
+<div class="row h-100 justify-content-center align-items-center">
+	<div class="col-md-6">
+        <h1>Delete an Article</h1>
+		<div class="card card-body">
+
+
+			<p>Are you sure you want to delete "{{item}}"?</p>
+
+			<form action="{% url 'rango:delete_article' item.id  %}" method="POST">
+				
+				{% csrf_token %}
+				<a class="btn btn-warning" href="{% url 'rango:article_show' %}">Cancel</a>
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

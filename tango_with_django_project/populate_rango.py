@@ -25,9 +25,13 @@ def populate():
            "Processor: 9780 i7"
 
     business = [
-        {'name': 'Asus 2',
-         'description': desc,
-         'price': 600.50},
+        {'name': 'Lenovo IdeaCentre A340',
+         'description': '''  All-in-One Design: The stunning A340 AIO PC will look great in any room with its elegant base and stand, this 21.5 Inch all-in-one takes up minimal space on your office desk
+Exceptional viewing experience: With an adjustable near-edgeless 22-inch FHD WVA monitor, the A340 is perfect for comfortable working with a wider viewing angle for visual quality
+Runs like a dream: Even when your workload gets hectic, the A340 multi-tasks seamlessly with Intel Core i3 processing, 4 GB DIMM DDR4 and 1 TB HDD storage
+Your privacy counts: The IdeaCentre All-in-one enables you to livestream with ease while keeping your world private with a TrueBlock privacy shutter to hide your webcam whenever you want to
+Keep organised: With a built-in cable tidy attached to the stand your desk stays clutter-free, even when you connect the bundled accessories - 1 x USB Calliope Keyboard and 1 x USB Calliope Mouse ''',
+         'price': 600.97},
         {'name': 'Asus 3',
          'description': desc,
          'price': 560.50,
@@ -117,8 +121,7 @@ def populate():
     for review in reviews:
         add_review(review['user'], review['product'], review['rating'], review['content'], review['date'] )
 
-    add_review("jeff08", "Asus 11", 8, "Very good!", "Aug. 1, 2021, 7:41 p.m.")
-    add_review("jeff04", "Asus 2", 2, "Very bad!", "Jul. 21, 2021, 11:01 p.m.")
+
 
 
 def add_product(cat, name, price, description):
