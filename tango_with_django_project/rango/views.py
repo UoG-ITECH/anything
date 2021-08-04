@@ -375,7 +375,6 @@ def edit_article(request, pk):
         if request.user == article.author:
             if request.method == 'POST':
                 form = ArticleForm(request.POST, instance=article)
-                
                 if form.is_valid():
                     form.save()
                     
