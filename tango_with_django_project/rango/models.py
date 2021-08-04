@@ -44,7 +44,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True, default="../static/images/account_blank.png")
     date = models.DateField(auto_now=True)
 
     def __str__(self):
