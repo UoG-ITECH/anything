@@ -42,10 +42,10 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:search' %}"><i class="fas fa-search"></i></a></li>
                 <li class="nav-item"><a class="nav-link"><i class="far fa-heart"></i></a></li>
             {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'rango:restricted' %}">Restricted Page</a></li>
+<!--                <li class="nav-item"><a class="nav-link" href="{% url 'rango:restricted' %}">Restricted Page</a></li>-->
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:add_category' %}">Add a New Category</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'rango:article_show' %}">Articles</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change your Password</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'rango:article_show' %}"><i class="far fa-comment-dots"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}"><i class="fas fa-unlock"></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:profile' %}" ><i class="far fa-user"></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'rango:index' %}"><i class="fas fa-sign-out-alt"></i></a></li>
             {% else %}
@@ -63,19 +63,15 @@
 
 <div class="container-fluid">
     <div class="row">
-<!--        <nav class="col-md-2 d-none d-md-block bg-light sidebar">-->
-<!--            <div class="sidebar-sticky">-->
-<!--            {% block sidebar_block %}-->
-<!--                {% get_category_list category %}-->
-<!--            {% endblock %}-->
-<!--            </div>-->
-<!--        </nav>-->
-
         <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4" style="margin-top:8rem;">
         {% block body_block%}
         {% endblock %}
             <footer>
-                <button class="btn" onclick='window.scrollTo({top: 0, behavior: "smooth"});'><i class="fas fa-arrow-circle-up"></i></button>
+                <button style="position: absolute; right: 0; bottom:0;" class="btn" onclick='window.scrollTo({top: 0, behavior: "smooth"});'>
+                    <img src="{% static 'images/go-to-top.png' %}" alt="GO TO TOP"
+                     width="40px"
+                    />
+                </button>
                 <p>&copy; 2021 Anything project written by Hwisun, Ramon, Jose</p>
             </footer>
         </main>

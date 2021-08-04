@@ -90,9 +90,16 @@ Unknown Category
 	{% endif %}
 </div>
 </div>
-<a href="{% url 'rango:add_product' category.slug %}">Add Product</a> <br/>
+<br>
+<a class="btn btn-primary" href="{% url 'rango:add_product' category.slug %}">Add Product</a> <br/>
 {% endif %}
 {% else %}
 The specified category does not exist.
 {% endif %}
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
 {% endblock %}
