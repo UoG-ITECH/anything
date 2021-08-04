@@ -20,5 +20,9 @@ urlpatterns = [
 
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
-
+    path('add_article/', views.add_article, name="add_article"),
+    path('article/', views.article_show, name="article_show"),
+    path('edit_article/<str:pk>/', views.edit_article, name="edit_article"),
+    path('delete_article/<str:pk>/', views.delete_article, name="delete_article"),
+    path('add_store/', views.add_store, name="add_store"),
 ]
