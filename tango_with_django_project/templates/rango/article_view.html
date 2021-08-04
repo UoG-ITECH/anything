@@ -1,0 +1,53 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Article
+{% endblock %}
+
+{% block body_block%}
+<div>
+    {% if user.is_authenticated %}
+        howdy {{ user.username }}!
+    {% else %}
+        hey there partner!
+    {% endif %}
+    <br />
+    <strong>{{ boldmessage }}</strong><br />
+</div>
+
+
+<div class="container">
+    <br>
+    <h1>Articles</h1>
+    <div class="card" id="backdrop">
+        <div class="card-body">
+            <div class="row">
+                {% for article in articles %}
+                <div class="col-md-4">
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                            <img src="{{ article.picture.url }}" alt="" class="img-fluid" width="75%">
+                            <h3 class="text-center">{{ article.title }}</h3>
+                            
+                            <i class="text-center">{{ article.date }}</i>
+                            <a href="{% url 'rango:article_information' article.id %}">Read More</a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
+{% endblock %}
