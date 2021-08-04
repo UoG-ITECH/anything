@@ -12,19 +12,21 @@
 
 <div class="row">
     <div class="col-6 col-md-4 col-lg-6 ">
-        <h3>Login to Rango</h3>
+        <h3>Login</h3>
         <form action="{% url 'rango:login' %}" method="post" id="login_form">
             {% csrf_token %}
             <input type="text" name="username" value="" placeholder="Username">
             <br>
+            <br>
             <input type="password" name="password" value="" placeholder="Password">
             <br>
-            <input type="submit" value="submit" />
+            <br>
+            <input class="btn btn-primary" type="submit" value="submit" />
         </form>
     </div>
 
     <div class="col-6 col-md-8 col-lg-6 ">
-        <h3>Register for ANYTHING</h3>
+        <h3>Register</h3>
         {% if registered %}
             Rango says: <strong>thank you for registering!</strong>
             <a href="{% url 'rango:index' %}">Return to the homepage.</a><br />
@@ -34,7 +36,7 @@
                 {% csrf_token %}
                 {{ user_form.as_p }}
                 {{ profile_form.as_p }}
-                <input type="submit" name="submit" value="Register" />
+                <input class="btn btn-primary" type="submit" name="submit" value="Register" />
             </form>
         {% endif %}
     </div>
