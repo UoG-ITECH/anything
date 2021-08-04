@@ -1,6 +1,5 @@
 import os
 
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'tango_with_django_project.settings')
 
@@ -44,7 +43,7 @@ def populate():
         {'name': 'Asus 6',
          'url': 'http://docs.python.org/3/tutorial/',
          'description': desc,
-         'price': 800.50 },
+         'price': 800.50},
         {'name': 'Asus 7',
          'url': 'http://www.greenteapress.com/thinkpython/',
          'description': desc,
@@ -78,23 +77,24 @@ def populate():
             'Business': {'pages': business},
             'Portable': {'pages': portable}}
 
-
-
     # The code below goes through the cats dictionary, then adds each category,
     # and then adds all the associated pages for that category.
 
     for cat, cat_data in cats.items():
         c = add_cat(cat)
         for p in cat_data['pages']:
-            add_product(c, p['name'], p['url'],  p['price'], p['description'])
+            add_product(c, p['name'], p['url'], p['price'], p['description'])
 
     # Print out the categories we have added.
     for c in Category.objects.all():
         for p in Product.objects.filter(category=c):
             print(f'- {c}: {p}')
 
+    add_review("jeff08", "Asus 11", 8, "Very good!", "Aug. 1, 2021, 7:41 p.m.")
+    add_review("jeff04", "Asus 2", 2, "Very bad!", "Jul. 21, 2021, 11:01 p.m.")
 
-def add_product(cat, name, url,  price, description):
+
+def add_product(cat, name, url, price, description):
     p = Product.objects.get_or_create(category=cat, name=name)[0]
     p.url = url
 
@@ -111,13 +111,14 @@ def add_cat(name):
     c.save()
     return c
 
-def add_review(user, product , rating, content, date, cat):
-    p = DummyReview.objects.get_or_create(dummy_date=date)[0]
-    p.dummy_product = Product.objects.get_or_create(category=cat, name=product)[0]
-    p.dummy_user=user
-    p.dummy_rating=rating
-    p.dummy_content = content
 
+def add_review(user, product, rating, content, date):
+    prd = Product.objects.get(name=product)
+    p = DummyReview.objects.get_or_create(dummy_product=prd,dummy_user=user, dummy_date=date, dummy_rating=rating,
+                                          dummy_content=content)[0]
+
+    p.save()
+    return p
 
 
 
