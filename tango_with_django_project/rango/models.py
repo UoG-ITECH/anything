@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from django.template.defaultfilters import slugify
+from django.template.defaultfilters import last, slugify
 
 
 class Category(models.Model):
@@ -19,6 +19,20 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Store(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200)
+    slug = models.SlugField(unique=True)
+    ratings = models.IntegerField(default=0)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Store, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     # Denotes Max length of title and description variables
@@ -31,6 +45,7 @@ class Product(models.Model):
     description = models.TextField(max_length=MAX_LEN_DESC, default='')
     slug = models.SlugField()
     picture = models.ImageField(upload_to='product_images', blank=True)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -84,4 +99,13 @@ class DummyReview(models.Model):
     dummy_date = models.TextField()
 
 
+class Article(models.Model):
+    title = models.CharField(max_length=300, help_text="Please enter the Article title here.")
+    content = models.TextField(max_length=5000, help_text="Please enter the content of the article here.")
+    date = models.DateField(help_text="Please enter the date here.")
+    author = models.ForeignKey(UserProfile,on_delete=models.CASCADE, max_length=200, help_text="Please enter the author name here.")
+    picture = models.ImageField(upload_to='article_images', blank=True)
+
+    def __str__(self):
+        return self.title
 
