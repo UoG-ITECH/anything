@@ -11,7 +11,7 @@
 
  {% block body_block %}
  <div>
-            <center><h2>{{ product.name }}</h2><center/>
+            <center><h2>{{ product.name }}</h2></center>
                 <br><br><br>
         {% if product %}
             <div class="row">
@@ -24,17 +24,18 @@
                 <br />
                 {% else %}
                 <img src="{% static pathimg %}"
-                     width="300"
-                     height="300"
+                     width="500"
+                     height="500"
                      alt="Picture of Computer" />
                 {% endif %}
       </div>
       <div class="col-6">
        <ul>
-            {{ product.name }}
+           <center>
+            <strong>Product Name: </strong> {{ product.name }}
                 
                 <br/>
-             Description:
+             Description: <br/>
                 {{ product.description }}
                 <br/>
              Price:  £ {{ product.price |floatformat:2 }}
@@ -43,7 +44,7 @@
            <br/>
            <br/>
            <a class="btn btn-primary btn-xl" id="buy-btn" >Buy from {{product.store}}</a>
-           
+           </center>
                 
             </ul>
       </div>

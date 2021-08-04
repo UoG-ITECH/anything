@@ -66,7 +66,7 @@ class ReviewForm(forms.ModelForm):
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ('title', 'content', 'date', 'author', 'picture',)
+        fields = ('title', 'content', 'picture',)
 
 class StoreForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name', 'style': 'width: 300px;', 'class': 'form-control'}))
