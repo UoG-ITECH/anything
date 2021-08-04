@@ -15,7 +15,7 @@
         <div class="col-md-6">
             <div class="card card-body">
     
-                <form action="{% url 'rango:add_article' %}" method="post" id="article_form">
+                <form action="{% url 'rango:add_article' %}" method="post" id="article_form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{form|crispy}}
                     

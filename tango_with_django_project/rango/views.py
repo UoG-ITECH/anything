@@ -274,32 +274,54 @@ def add_article(request):
             if article_form.is_valid():
                 data = article_form.save()
                 data.save()
-                return redirect(reverse('/rango/article/'))
+                
+                data_picture = article_form.save(commit=False)
+                data_picture.picture = data
+                
+                if 'picture' in request.FILES:
+                    data_picture.picture = request.FILES['picture']
+                data_picture.save()
+                
+                return redirect('/rango/article/')
         else:
             form = ArticleForm()
         return render(request, 'rango/add_article.html', {'form': form})
     return redirect(reverse('rango:index'))
 
+
 def edit_article(request, pk):
-    article = Article.objects.get(id=pk)
-    form = ArticleForm(instance=article)
-    
-    if request.method == 'POST':
-        form = ArticleForm(request.POST, instance=article)
+    if request.user.is_authenticated:
         
-        if form.is_valid():
-            form.save()
-            return redirect('/rango/article/')
-    
-    context = {'form':form}
+        article = Article.objects.get(id=pk)
+        form = ArticleForm(instance=article)
+        
+        if request.method == 'POST':
+            form = ArticleForm(request.POST, instance=article)
+
+            if form.is_valid():
+                form.save()
+                
+                data_picture = form.save(commit=False)
+                data_picture.picture = form
+                
+                if 'picture' in request.FILES:
+                    data_picture.picture = request.FILES['picture']
+                data_picture.save()
+                
+                return redirect('/rango/article/')
+        
+        context = {'form':form}
     return render(request, 'rango/edit_article.html', context)
 
 def delete_article(request, pk):
-    article = Article.objects.get(id=pk)
-    if request.method == "POST":
-        article.delete()
-        return redirect('/rango/article/')
-    context = {'item':article}
+    if request.user.is_authenticated:
+        article = Article.objects.get(id=pk)
+        
+        if request.method == "POST":
+            article.delete()
+            return redirect('/rango/article/')
+        context = {'item':article}
+        
     return render(request, 'rango/delete_article.html', context)
 
 
@@ -325,4 +347,3 @@ def add_store(request):
             form = StoreForm()
         return render(request, 'rango/add_store.html', {'form': form})
     return redirect(reverse('rango:index'))
-                
