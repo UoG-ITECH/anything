@@ -435,3 +435,18 @@ def store_show(request):
         
     return render(request, 'rango/store.html', context=context_dict)
 
+
+def article_view(request):
+    article_list = Article.objects.all()
+    context_dict = {}
+    context_dict['articles'] = article_list
+    
+    return render(request, 'rango/article_view.html',context=context_dict)
+
+def article_information(request, pk):
+    article = Article.objects.get(id=pk)
+
+    context = {'article': article}
+    
+    return render(request, 'rango/article_information.html', context)
+    
