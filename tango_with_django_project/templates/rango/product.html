@@ -11,7 +11,7 @@
 
  {% block body_block %}
  <div>
-            <center><h2>{{ product.name }}</h2><center/>
+            <center><h2>{{ product.name }}</h2></center>
                 <br><br><br>
         {% if product %}
             <div class="row">
@@ -24,21 +24,27 @@
                 <br />
                 {% else %}
                 <img src="{% static pathimg %}"
-                     width="300"
-                     height="300"
+                     width="500"
+                     height="500"
                      alt="Picture of Computer" />
                 {% endif %}
       </div>
       <div class="col-6">
        <ul>
-            {{ product.name }}
+           <center>
+            <strong>Product Name: </strong> {{ product.name }}
                 
                 <br/>
-             Description:
+             Description: <br/>
                 {{ product.description }}
                 <br/>
              Price:  £ {{ product.price |floatformat:2 }}
                 <br/>
+           <br/>
+           <br/>
+           <br/>
+           <a class="btn btn-primary btn-xl" id="buy-btn" >Buy from {{product.store}}</a>
+           </center>
                 
             </ul>
       </div>
@@ -49,15 +55,13 @@
         </div>
  
  
- 
- 
- 
  <br>
 <hr>
  
   <div>
      <h2> Reviews </h2>
-     <li><a href="{% url 'rango:review' product.slug %}">Leave a review!</a></li>
+      <a class="btn btn-primary" href="{% url 'rango:review' product.slug %}">Leave a review!</a>
+      <br>
      {% if product.reviews.all%}
      {% for review in product.reviews.all %}
      Review by: {{ review.user }}
@@ -70,11 +74,30 @@
      <br>
      <hr>
      {% endfor %}
-     {% else %}
-     There are no reviews yet!
+     
      {% endif %}
+      {% if product.dummy_reviews.all%}
+     {% for review in product.dummy_reviews.all %}
+     Review by: {{ review.dummy_user }}
+     <br>
+     Review on: {{ review.dummy_date }}
+     <br>
+     Rating: {{ review.dummy_rating }} / 10
+     <br>
+     {{ review.dummy_content }}
+     <br>
+     <hr>
+     {% endfor %}
+     
+     {% endif %}
+      {% if not product.dummy_reviews.all and not product.reviews.all%}
+      No reviews yet
+      {% endif %}
  </div>
-
- 
-
  {% endblock %}
+
+ {% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
+{% endblock %}

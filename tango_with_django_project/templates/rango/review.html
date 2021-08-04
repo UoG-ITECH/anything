@@ -20,6 +20,13 @@ Add a Review!
       </div>
     
 		<input type="submit" name="submit" value="Add Review" />
+		<input type="submit" id="back-product-btn" value="Back" />
 	</form>
 </div>
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
 {% endblock %}

@@ -8,8 +8,8 @@ from django.views import View
 from datetime import datetime
 
 
-from rango.models import Category, Product, UserProfile, Article, Store
-from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, ArticleForm, StoreForm
+from rango.models import Category, Product, UserProfile, Article
+from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, ArticleForm, StoreForm
 from rango.bing_search import run_query
 
 
@@ -153,6 +153,7 @@ class AddProductView(View):
                 product = form.save(commit=False)
                 product.category = category
                 product.views = 0
+
                 if 'picture' in request.FILES:
                     product.picture = request.FILES['picture']
                 product.save()
@@ -171,13 +172,19 @@ class AddProductView(View):
 class ProfileView(View):
     @method_decorator(login_required)
     def get(self, request):
-        profile = request.user
-        print(profile)
+        profile = UserProfile.objects.get(user__username=request.user.username)
         return render(request, 'rango/profile.html', {'profile': profile})
 
-    # TODO: functionality to modify profile
-    # @method_decorator(login_required)
-    # def post(self, request):
+    @method_decorator(login_required)
+    def post(self, request):
+        form = UserProfileEditForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save(commit=True)
+        else:
+            print(form.errors)
+
+        return render(request, 'rango/profile.html', context={'form': form})
 
 
 def goto_url(request):
@@ -293,7 +300,8 @@ class AddReviewView(View):
                 review.product = product
                 review.user = request.user
                 review.save()
-                return redirect(reverse('rango:index'))
+
+                return ShowProductView.get(ShowProductView, request, slug)
         else:
             print(form.errors)
 
@@ -338,7 +346,7 @@ def visitor_cookie_handler(request):
 
 @login_required
 def add_article(request):
-    if request.user.is_authenticated:        
+    if request.user.is_authenticated:
         if request.method == "POST":
             article_form = ArticleForm(request.POST,request.FILES)
                                  
@@ -359,7 +367,7 @@ def add_article(request):
 @login_required
 def edit_article(request, pk):
     if request.user.is_authenticated:
-        
+
         article = Article.objects.get(id=pk)
         form = ArticleForm(instance=article)
         if request.user == article.author:
@@ -371,7 +379,7 @@ def edit_article(request, pk):
                     return redirect('/any/article/')
 
             context = {'form':form}
-            
+
         else:
             return redirect('/any/article/')
     return render(request, 'rango/edit_article.html', context)
@@ -384,13 +392,13 @@ def delete_article(request, pk):
             if request.method == "POST":
                 article.delete()
                 return redirect('/any/article/')
-            
+
             context = {'item':article}
-            
-        
+
+
         else:
             return redirect('/any/article/')
- 
+
     return render(request, 'rango/delete_article.html', context)
 
 @login_required
