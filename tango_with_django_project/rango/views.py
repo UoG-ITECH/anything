@@ -398,11 +398,17 @@ def edit_article(request, pk):
 def delete_article(request, pk):
     if request.user.is_authenticated:
         article = Article.objects.get(id=pk)
-        if request.method == "POST":
-            article.delete()
-            return redirect('/any/article/')
-        context = {'item':article}
+        if request.user == article.author:
+            if request.method == "POST":
+                article.delete()
+                return redirect('/any/article/')
+            
+            context = {'item':article}
+            
         
+        else:
+            return redirect('/any/article/')
+ 
     return render(request, 'rango/delete_article.html', context)
 
 @login_required
