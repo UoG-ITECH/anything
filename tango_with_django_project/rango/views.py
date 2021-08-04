@@ -7,7 +7,6 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from datetime import datetime
 
-
 from rango.models import Category, Product, UserProfile
 from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm
 from rango.bing_search import run_query
@@ -274,7 +273,6 @@ class AddReviewView(View):
     def get(self, request, slug):
         form = ReviewForm()
         product = Product.objects.get(slug=slug)
-
         if product is None:
             return redirect(reverse('rango:index'))
 
@@ -293,7 +291,8 @@ class AddReviewView(View):
                 review.product = product
                 review.user = request.user
                 review.save()
-                return redirect(reverse('rango:index'))
+
+                return ShowProductView.get(ShowProductView, request, slug)
         else:
             print(form.errors)
 
