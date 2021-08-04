@@ -70,9 +70,25 @@
      <br>
      <hr>
      {% endfor %}
-     {% else %}
-     There are no reviews yet!
+     
      {% endif %}
+      {% if product.dummy_reviews.all%}
+     {% for review in product.dummy_reviews.all %}
+     Review by: {{ review.dummy_user }}
+     <br>
+     Review on: {{ review.dummy_date }}
+     <br>
+     Rating: {{ review.dummy_rating }} / 10
+     <br>
+     {{ review.dummy_content }}
+     <br>
+     <hr>
+     {% endfor %}
+     
+     {% endif %}
+      {% if not product.dummy_reviews.all and not product.reviews.all%}
+      No reviews yet
+      {% endif %}
  </div>
 
  
