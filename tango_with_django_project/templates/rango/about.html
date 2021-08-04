@@ -1,4 +1,4 @@
-{% extends 'rango/base.html' %}
+<link rel="stylesheet" href="../../static/css/styles.css">{% extends 'rango/base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -6,15 +6,28 @@
 {% endblock %}
 
 {% block body_block%}
-    <h1>Rango says here is the about page.</h1>
+<container style="display:flex; justify-content:center; align-items: center; margin-bottom: 20px;">
+    <h1 class="row text-uppercase" style="text-align: center;">Everything About ANYTHING</h1>
+</container>
     <div>
-        hey there partner! <br>
-        <strong>This tutorial has been put together by Hwisun Bae.</strong><br>
-        <p>Visits: {{ visits }}</p>
+        Hello!<br><br>
+        <h5>About App</h5>
+        What makes ANYTHING powerful is the ability to lead customers to find the most suitable laptop. <br>
+        If they are unsure of what type of laptop to buy, this web will direct them and let them choose the most right one.<br>
+        There are wishlist, search, google map, article functionalities to help them choose a laptop.
+
+
+        <br>
+        <br>
+        <h5>About Team</h5>
+        ANYTHING has been made with our valuable team. <br>
+        Front-end and back-end work has been distributed equally to each member. <br>
+        <img src="{% static 'images/team.jpg' %}" alt="Picture of Our Team" style="height: auto; width:600px;"/>
     </div>
 
-    <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
-    <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat." />
+
+
+<!--<p>Visits: {{ visits }}</p>-->
 {% endblock %}
 
 {% block script_block%}

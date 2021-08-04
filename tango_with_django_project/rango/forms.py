@@ -4,8 +4,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from rango.models import Category, UserProfile, Product, Review
 
 
-
-
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=Category.MAX_LEN_NAME,
                            help_text="Please enter the category name.")
@@ -28,13 +26,11 @@ class ProductForm(forms.ModelForm):
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     description = forms.CharField(widget=forms.Textarea, help_text="Enter Product description",
                                   max_length=Product.MAX_LEN_DESC)
-    picture = forms.ImageField(help_text="Submit a picture of the product",required=False)
+    picture = forms.ImageField(help_text="Submit a picture of the product", required=False)
 
     class Meta:
         model = Product
         exclude = ('category', 'slug')
-
-
 
 
 class UserForm(forms.ModelForm):
@@ -60,3 +56,9 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         exclude = ('user', 'product', 'date')
+
+
+class UserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email',)
