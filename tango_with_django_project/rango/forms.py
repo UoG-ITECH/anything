@@ -28,6 +28,7 @@ class ProductForm(forms.ModelForm):
                                   max_length=Product.MAX_LEN_DESC)
     picture = forms.ImageField(help_text="Submit a picture of the product", required=False)
 
+
     class Meta:
         model = Product
         exclude = ('category', 'slug')

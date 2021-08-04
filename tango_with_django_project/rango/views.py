@@ -153,6 +153,7 @@ class AddProductView(View):
                 product = form.save(commit=False)
                 product.category = category
                 product.views = 0
+
                 if 'picture' in request.FILES:
                     product.picture = request.FILES['picture']
                 product.save()
@@ -299,7 +300,8 @@ class AddReviewView(View):
                 review.product = product
                 review.user = request.user
                 review.save()
-                return redirect(reverse('rango:index'))
+
+                return ShowProductView.get(ShowProductView, request, slug)
         else:
             print(form.errors)
 
@@ -344,7 +346,7 @@ def visitor_cookie_handler(request):
 
 @login_required
 def add_article(request):
-    if request.user.is_authenticated:        
+    if request.user.is_authenticated:
         if request.method == "POST":
             article_form = ArticleForm(request.POST)
             
@@ -375,7 +377,7 @@ def add_article(request):
 @login_required
 def edit_article(request, pk):
     if request.user.is_authenticated:
-        
+
         article = Article.objects.get(id=pk)
         form = ArticleForm(instance=article)
         if request.user == article.author:
@@ -383,18 +385,18 @@ def edit_article(request, pk):
                 form = ArticleForm(request.POST, instance=article)
                 if form.is_valid():
                     form.save()
-                    
+
                     data_picture = form.save(commit=False)
                     data_picture.picture = form
-                    
+
                     if 'picture' in request.FILES:
                         data_picture.picture = request.FILES['picture']
                     data_picture.save()
-                    
+
                     return redirect('/any/article/')
 
             context = {'form':form}
-            
+
         else:
             return redirect('/any/article/')
     return render(request, 'rango/edit_article.html', context)
@@ -407,13 +409,13 @@ def delete_article(request, pk):
             if request.method == "POST":
                 article.delete()
                 return redirect('/any/article/')
-            
+
             context = {'item':article}
-            
-        
+
+
         else:
             return redirect('/any/article/')
- 
+
     return render(request, 'rango/delete_article.html', context)
 
 @login_required
