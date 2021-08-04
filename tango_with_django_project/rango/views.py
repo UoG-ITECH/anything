@@ -171,8 +171,7 @@ class AddProductView(View):
 class ProfileView(View):
     @method_decorator(login_required)
     def get(self, request):
-        profile = request.user
-        print(profile)
+        profile = UserProfile.objects.get(user__username=request.user.username)
         return render(request, 'rango/profile.html', {'profile': profile})
 
     # TODO: functionality to modify profile
