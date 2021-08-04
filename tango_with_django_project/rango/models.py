@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from django.template.defaultfilters import slugify
+from django.template.defaultfilters import last, slugify
 
 
 class Category(models.Model):
@@ -99,6 +99,8 @@ class Store(models.Model):
     email = models.EmailField(max_length=200)
     slug = models.SlugField(unique=True)
     ratings = models.IntegerField(default=0)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
