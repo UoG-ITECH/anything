@@ -57,7 +57,8 @@
  
   <div>
      <h2> Reviews </h2>
-     <li><a href="{% url 'rango:review' product.slug %}">Leave a review!</a></li>
+      <a class="btn btn-primary" href="{% url 'rango:review' product.slug %}">Leave a review!</a>
+      <br>
      {% if product.reviews.all%}
      {% for review in product.reviews.all %}
      Review by: {{ review.user }}
@@ -74,7 +75,10 @@
      There are no reviews yet!
      {% endif %}
  </div>
-
- 
-
  {% endblock %}
+
+ {% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
+{% endblock %}
