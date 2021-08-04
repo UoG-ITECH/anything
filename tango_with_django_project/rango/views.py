@@ -340,7 +340,7 @@ def visitor_cookie_handler(request):
 def add_article(request):
     if request.user.is_authenticated:        
         if request.method == "POST":
-            article_form = ArticleForm(request.POST, request.FILES)
+            article_form = ArticleForm(request.POST,request.FILES)
                                  
             if article_form.is_valid():
                 data = article_form.save(commit=False)
