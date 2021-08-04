@@ -19,6 +19,20 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Store(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200)
+    slug = models.SlugField(unique=True)
+    ratings = models.IntegerField(default=0)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Store, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     # Denotes Max length of title and description variables
@@ -31,6 +45,7 @@ class Product(models.Model):
     description = models.TextField(max_length=MAX_LEN_DESC, default='')
     slug = models.SlugField()
     picture = models.ImageField(upload_to='product_images', blank=True)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -44,7 +59,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True, default="../static/images/account_blank.png")
     date = models.DateField(auto_now=True)
 
     def __str__(self):
@@ -78,8 +93,8 @@ class DummyReview(models.Model):
     Dummy review class used to populate the page with existing reviews
     '''
     dummy_user = models.TextField()
-    dummy_product = models.ForeignKey(Product, related_name='reviews_dummy', on_delete=models.CASCADE)
-    dummy_rating = models.IntegerField()
+    dummy_product = models.ForeignKey(Product, related_name='dummy_reviews', on_delete=models.CASCADE)
+    dummy_rating = models.IntegerField(blank=True)
     dummy_content= models.TextField()
     dummy_date = models.TextField()
 
@@ -90,21 +105,7 @@ class Article(models.Model):
     date = models.DateField(auto_now_add=True)
     author = models.ForeignKey(User,on_delete=models.CASCADE, max_length=200)
     picture = models.ImageField(upload_to='article_images', blank=True)
-    
+
     def __str__(self):
         return self.title
 
-class Store(models.Model):
-    name = models.CharField(max_length=200)
-    email = models.EmailField(max_length=200)
-    slug = models.SlugField(unique=True)
-    ratings = models.IntegerField(default=0)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
-        
-    def __str__(self):
-        return self.name

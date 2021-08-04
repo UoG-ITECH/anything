@@ -27,6 +27,7 @@
             
             {{ form.description|as_crispy_field}}
             {{ form.picture|as_crispy_field}}
+            {{form.store| as_crispy_field}}
             <br />
             <div class="p-2"></div>
             
@@ -34,8 +35,17 @@
             <button class="btn btn-primary" type="submit" name="submit">
                 Add Page
             </button>
+            <button class="btn btn-danger" id="back-product-btn" name="submit">
+                Back
+            </button>
             <div class="p-5"></div>
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
 {% endblock %}
