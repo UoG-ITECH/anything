@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-from rango.models import Category, UserProfile, Product, Review
+from rango.models import Category, UserProfile, Product, Review, Article, Store
 
 
 
@@ -60,3 +60,17 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         exclude = ('user', 'product', 'date')
+
+
+class ArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ('title', 'content', 'date', 'author', 'picture',)
+
+class StoreForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name', 'style': 'width: 300px;', 'class': 'form-control'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'style': 'width: 300px;', 'class': 'form-control'}))
+    
+    class Meta:
+        model = Store
+        fields = ('name', 'email', 'slug', 'ratings',)
