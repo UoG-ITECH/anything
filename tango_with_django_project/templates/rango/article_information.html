@@ -23,7 +23,11 @@
         <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-                <img src="{{ article.picture.url }}" alt="{{ article.picture.url }}" class="img-fluid">
+                {% if article.picture.url != "" %}
+                    <img src="{{ article.picture.url }}" alt="{{ article.picture.url }}" class="img-fluid">
+                {% else %}
+                <img src="" alt="" class="img-fluid">
+                {% endif %}
             </div>
             <div class="col-md-8">
                 <h3 class="text-center">
