@@ -13,12 +13,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
-    list_display = ('name', 'latitude', 'longitude',)
+    list_display = ('name', 'email','latitude', 'longitude',)
     search_fields = ('name',)
 
     fieldsets = (
         (None, {
-            'fields': ( 'name', 'latitude', 'longitude',)
+            'fields': ( 'name','email', 'latitude', 'longitude',)
         }),
     )
 
