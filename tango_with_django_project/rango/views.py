@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 from rango.models import Category, Product, UserProfile
-from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm
+from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm
 from rango.bing_search import run_query
 
 
@@ -174,9 +174,16 @@ class ProfileView(View):
         profile = UserProfile.objects.get(user__username=request.user.username)
         return render(request, 'rango/profile.html', {'profile': profile})
 
-    # TODO: functionality to modify profile
-    # @method_decorator(login_required)
-    # def post(self, request):
+    @method_decorator(login_required)
+    def post(self, request):
+        form = UserProfileEditForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save(commit=True)
+        else:
+            print(form.errors)
+
+        return render(request, 'rango/profile.html', context={'form': form})
 
 
 def goto_url(request):
