@@ -103,9 +103,22 @@ class Article(models.Model):
     title = models.CharField(max_length=300, help_text="Please enter the Article title here.")
     content = models.TextField(max_length=5000, help_text="Please enter the content of the article here.")
     date = models.DateField(auto_now_add=True)
-    author = models.ForeignKey(User,on_delete=models.CASCADE, max_length=200)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, max_length=200)
     picture = models.ImageField(upload_to='article_images', blank=True)
 
     def __str__(self):
         return self.title
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    products = models.ForeignKey(Product, on_delete=models.CASCADE)
+    slug = models.SlugField()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Wishlist, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.products
 

@@ -44,8 +44,11 @@
                 <br/>
              Price:  £ {{ product.price |floatformat:2 }}
                 <br/>
-           <br/>
-           <br/>
+
+           <br>
+           <a class="btn btn-primary" id="add-to-wishlist" href="" >
+               Add To Wishlist <i class="far fa-heart"></i></a>
+
            <br/>
            <a class="btn btn-primary btn-xl" id="buy-btn" >Buy from {{product.store}}</a>
            </center>
