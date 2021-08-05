@@ -1,0 +1,54 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Article
+{% endblock %}
+
+{% block body_block%}
+<div>
+    {% if user.is_authenticated %}
+        howdy {{ user.username }}!
+    {% else %}
+        hey there partner!
+    {% endif %}
+    <br />
+    <strong>{{ boldmessage }}</strong><br />
+</div>
+
+<div class="container">
+
+    <br>
+    <div class="card">
+        <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                {% if article.picture.url != "" %}
+                    <img src="{{ article.picture.url }}" alt="{{ article.picture.url }}" class="img-fluid">
+                {% else %}
+                <img src="" alt="" class="img-fluid">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <h3 class="text-center">
+                    {% csrf_token %}
+                    {{ article.title }}
+                </h3>
+                <p>{{ article.content }}</p>
+                <h5>Author: {{ article.author }}</h5>
+                <h5>Date: {{ article.date }}</h5>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <a class="btn btn-danger" href="{% url 'rango:article_view' %}">Back</a>
+</div>
+
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
+{% endblock %}
