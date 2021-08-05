@@ -13,26 +13,47 @@ Unknown Category
 {% if category %}
 <div class="jumbotron p-4">
 	<div class="container">
-		<h1><center>{{ category.name }}</center></h1>
+		<h1><center>Category: {{ category.name }}</center></h1>
 		<br/>
 	</div>
 </div>
 <div id="page-listing">
 	{% if products %}
-	<center>
-		
-			{% for product in products %}
-			<li><a href="{% url 'rango:show_computer' product.slug %}">{{ product.name }}</a></li>
-			<br>
-			
-			</li>
-			{% endfor %}
-		</center>
+	<div class="card" id="backdrop">
+        <div class="card-body">
+            <div class="row">
+                {% for product in products %}
+                <div class="col-md-4">
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                            {% if product.picture.url != "" %}
+                                <img src="{{ product.picture.url }}" alt="" class="img-fluid" width="75%">
+                            {% else %}
+                                <img src="" alt="" class="img-fluid" width="75%">
+                            {% endif %}
+                            <h3 class="text-center">{{ product.name }}</h3>
+
+                            <i class="text-center">£ {{ product.price }}</i>
+								<br>
+								<br>
+                            <a class="btn btn-sm btn-secondary" href="{% url 'rango:show_computer' product.slug %}">More</a>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 	<div/>
 	{% else %}
 	<strong>No pages currently in category.</strong>
 	{% endif %}
-	<a class="btn btn-primary" href="{% url 'rango:add_product' category.slug %}">Add Product</a> <br/>
+	<br>
+	<a class="btn btn-primary" style="float:right;" href="{% url 'rango:add_product' category.slug %}">Add Product</a> <br/>
 
 
 </div>
