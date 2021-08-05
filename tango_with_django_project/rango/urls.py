@@ -24,7 +24,8 @@ urlpatterns = [
     path('article/', views.article_show, name="article_show"),
     path('edit_article/<str:pk>/', views.edit_article, name="edit_article"),
     path('delete_article/<str:pk>/', views.delete_article, name="delete_article"),
-    path('add_store/', views.add_store, name="add_store"),
+    path('store/', views.store_show, name="store_show"),
     path('article_view/', views.article_view, name="article_view"),
     path('article_information/<str:pk>/', views.article_information, name="article_information"),
+    path('store_information/<str:pk>/', views.store_information, name="store_information"),
 ]
