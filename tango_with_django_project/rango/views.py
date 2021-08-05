@@ -44,7 +44,14 @@ def search(request):
         query = request.POST['query'].strip()
 
         if query:
-            result_list = run_query(query)
+            result_list_prov = Product.objects.all()
+
+            for item in result_list_prov:
+
+                if str(query).lower() in str(item).lower():
+                    result_list.append(item)
+                    print(item)
+    print(result_list)
 
     return render(request, 'rango/search.html', {
         'result_list': result_list,
@@ -186,21 +193,7 @@ class ProfileView(View):
         return render(request, 'rango/profile.html', context={'form': form})
 
 
-def goto_url(request):
-    if request.method == 'GET':
-        page_id = request.GET.get('page_id')
 
-        try:
-            selected_page = Page.objects.get(id=page_id)
-        except Page.DoesNotExist:
-            return redirect(reverse('rango:index'))
-
-        selected_page.views = selected_page.views + 1
-        selected_page.save()
-
-        return redirect(selected_page.url)
-
-    return redirect(reverse('rango:index'))
 
 
 @login_required
