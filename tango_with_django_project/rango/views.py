@@ -377,7 +377,7 @@ def edit_article(request, pk):
             context = {'form': form}
 
         else:
-            messages.warning(request, 'Error: The article belongs to another author.')
+            messages.error(request, 'UPDATE NOT PERMITTED | The article belongs to another author.')
             return redirect('/any/article/')
 
     return render(request, 'rango/edit_article.html', context)
@@ -394,7 +394,7 @@ def delete_article(request, pk):
 
             context = {'item': article}
         else:
-            messages.warning(request, 'Error: The article belongs to another author.')
+            messages.error(request, 'DELETE NOT PERMITTED | The article belongs to another author.')
             return redirect('/any/article/')
 
     return render(request, 'rango/delete_article.html', context)
