@@ -7,9 +7,8 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from datetime import datetime
 
-from rango.models import Category, Product, UserProfile, Article, Wishlist
-from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, \
-    ArticleForm, StoreForm
+from rango.models import Category, Product, UserProfile, Article, Store, Wishlist
+from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, ArticleForm, StoreForm
 from rango.bing_search import run_query
 
 
@@ -449,4 +448,11 @@ def article_information(request, pk):
     context = {'article': article}
     
     return render(request, 'rango/article_information.html', context)
+
+def store_information(request, pk):
+    store = Store.objects.get(id=pk)
+
+    context = {'store': store}
+    
+    return render(request, 'rango/store_information.html', context)
     
