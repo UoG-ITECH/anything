@@ -11,10 +11,11 @@
 	<div class="col-md-6">
         <h1>Edit an Article</h1>
 		<div class="card card-body">
+
 			<form action="" method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
 				{{form|crispy}}
-				<br>
+				
 				<button type="submit" class="btn btn-primary">Submit</button>
                 <a class="btn btn-danger" href="{% url 'rango:article_show' %}">Cancel</a>
 			</form>
@@ -22,8 +23,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 {% endblock %}
 

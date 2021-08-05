@@ -10,7 +10,6 @@ from datetime import datetime
 from rango.models import Category, Product, UserProfile, Article, Store, Wishlist
 from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, ArticleForm, StoreForm
 from rango.bing_search import run_query
-from django.contrib import messages
 
 
 class IndexView(View):
@@ -368,12 +367,12 @@ def edit_article(request, pk):
                 form = ArticleForm(request.POST,request.FILES, instance=article)
                 if form.is_valid():
                     form.save()
+                    
                     return redirect('/any/article/')
 
             context = {'form':form}
 
         else:
-            messages.warning(request, 'Error: This article belongs to another author.')
             return redirect('/any/article/')
     return render(request, 'rango/edit_article.html', context)
 
