@@ -46,9 +46,9 @@
                 <br/>
 
            <br>
-           <a class="btn btn-primary" id="add-to-wishlist" href="" >
+           <a class="btn btn-primary" id="add-to-wishlist" href="{% url 'rango:wishlist_view' %}" >
                Add To Wishlist <i class="far fa-heart"></i></a>
-
+               <br>
            <br/>
            <a class="btn btn-primary btn-xl" id="buy-btn" >Buy from {{product.store}}</a>
            </center>
@@ -67,7 +67,7 @@
  
   <div>
      <h2> Reviews </h2>
-      <a class="btn btn-primary" href="{% url 'rango:review' product.slug %}">Leave a review!</a>
+      <a class="btn btn-primary" href="{% url 'rango:review' product.slug %}" style="float:right;">Leave a review!</a>
       <br>
      {% if product.reviews.all%}
      {% for review in product.reviews.all %}

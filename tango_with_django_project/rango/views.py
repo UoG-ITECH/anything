@@ -5,10 +5,12 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.contrib import messages
 from datetime import datetime
 
 from rango.models import Category, Product, UserProfile, Article, Store, Wishlist
-from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, ArticleForm, StoreForm
+from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, \
+    ArticleForm, StoreForm
 from rango.bing_search import run_query
 
 
@@ -347,7 +349,7 @@ def add_article(request):
                 data.author = request.user
                 data.save()
 
-                return redirect('/any/article/')   
+                return redirect('/any/article/')
             else:
                 print(article_form.errors)
         else:
@@ -364,16 +366,18 @@ def edit_article(request, pk):
         form = ArticleForm(instance=article)
         if request.user == article.author:
             if request.method == 'POST':
-                form = ArticleForm(request.POST,request.FILES, instance=article)
+                form = ArticleForm(request.POST, request.FILES, instance=article)
                 if form.is_valid():
                     form.save()
-                    
+
                     return redirect('/any/article/')
 
-            context = {'form':form}
+            context = {'form': form}
 
         else:
+            messages.error(request, 'UPDATE NOT PERMITTED | You are not the author who wrote this.')
             return redirect('/any/article/')
+
     return render(request, 'rango/edit_article.html', context)
 
 
@@ -388,6 +392,7 @@ def delete_article(request, pk):
 
             context = {'item': article}
         else:
+            messages.error(request, 'DELETE NOT PERMITTED | You are not the author who wrote this.')
             return redirect('/any/article/')
 
     return render(request, 'rango/delete_article.html', context)
@@ -424,28 +429,43 @@ def store_show(request):
         store_list = Store.objects.all()
         context_dict = {}
         context_dict['stores'] = store_list
-        
+
     return render(request, 'rango/store.html', context=context_dict)
+
+
+@login_required
+def wishlist_view(request):
+    if request.method == 'GET':
+        product = request.GET.get('product')
+        print(product)
+    # print(request)
+    # wishlist = Wishlist.objects.all()
+    # context_dict = {'wishlist': wishlist}
+    # print(context_dict)
+    # print(request.GET.get('product_id'))
+    #
+    # return render(request, 'rango/wishlist_view.html', context=context_dict)
+    return render(request, 'rango/wishlist_view.html', context={})
 
 
 def article_view(request):
     article_list = Article.objects.all()
-    context_dict = {}
-    context_dict['articles'] = article_list
-    
-    return render(request, 'rango/article_view.html',context=context_dict)
+    context_dict = {'articles': article_list}
+
+    return render(request, 'rango/article_view.html', context=context_dict)
+
 
 def article_information(request, pk):
     article = Article.objects.get(id=pk)
 
     context = {'article': article}
-    
+
     return render(request, 'rango/article_information.html', context)
+
 
 def store_information(request, pk):
     store = Store.objects.get(id=pk)
 
     context = {'store': store}
-    
+
     return render(request, 'rango/store_information.html', context)
-    
