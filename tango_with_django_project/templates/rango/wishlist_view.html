@@ -18,6 +18,7 @@
 
 
 <div class="container">
+    {% include 'rango/messages.html' %}
     <br>
     <h1>Wishlist</h1>
     <div class="card" id="backdrop">
@@ -26,29 +27,42 @@
                 {% if wishlist|length == 0 %}
                 <p>Please add items in your wishlist.</p>
                 {% else %}
-                {% for item in wishlist %}
+                {% for product in wishlist %}
                 <div class="col-md-4">
                     <br>
                     <div class="card">
                         <div class="card-body">
                             <div class="text-center">
-                                <img src="{{ item.picture.url }}" alt="" class="img-fluid" width="75%">
-                            <h3 class="text-center">{{ item.name }}</h3>
-                            {{ item.price }}
-                            <i class="text-center">{{ item.date }}</i>
-<!--                            <a href="{% url 'rango:article_information' article.id %}">Read More</a>-->
+                             
+                            <h3 class="text-center">{{ product.name }}</h3>
+                            {{ product.price }}
+                            <i class="text-center">{{ product.date }}</i>
+                            <br>
+
+                            <a class="btn btn-primary" id="add-to-wishlist" href="{% url 'rango:add_wishlist_view' product.id %}" >
+                                Remove from Wishlist <i class="far fa-heart"></i></a>
+
                         </div>
                         
                         </div>
                     </div>
+                    
                 </div>
 
                 {% endfor %}
                 {% endif %}
             </div>
         </div>
+        
     </div>
 </div>
+<script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 2000)
+  </script> 
 {% endblock %}
 
 {% block script_block%}
