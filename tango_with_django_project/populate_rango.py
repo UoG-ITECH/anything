@@ -7,7 +7,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 
 django.setup()
-from rango.models import Category, Product, DummyReview, Store
+from rango.models import Category, Product, DummyReview, Store, Article
+from django.contrib.auth.models import User, UserManager
 
 
 def populate():
@@ -241,8 +242,36 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
             'rating': 6,
         },
     ]
+    li = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum neque egestas congue quisque egestas diam in arcu. Tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Enim ut sem viverra aliquet eget sit. Ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant. Id nibh tortor id aliquet lectus. Sit amet venenatis urna cursus. Mauris commodo quis imperdiet massa tincidunt. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Adipiscing elit pellentesque habitant morbi tristique senectus.
 
-    comps = [cats, reviews, stores]
+Ullamcorper sit amet risus nullam eget. Neque convallis a cras semper auctor neque. Ac odio tempor orci dapibus ultrices. Donec massa sapien faucibus et molestie ac feugiat sed. Justo eget magna fermentum iaculis eu non. Diam vulputate ut pharetra sit. Rutrum quisque non tellus orci ac auctor. Quam viverra orci sagittis eu volutpat odio facilisis mauris. Et egestas quis ipsum suspendisse ultrices. Tempor nec feugiat nisl pretium fusce. Ipsum dolor sit amet consectetur adipiscing elit ut aliquam purus. Mollis aliquam ut porttitor leo a diam sollicitudin tempor id. Amet massa vitae tortor condimentum. Sed euismod nisi porta lorem mollis aliquam. Cursus vitae congue mauris rhoncus aenean.
+
+Leo a diam sollicitudin tempor id eu nisl nunc. Volutpat sed cras ornare arcu dui vivamus arcu. Imperdiet dui accumsan sit amet nulla. Egestas quis ipsum suspendisse ultrices gravida. Enim sit amet venenatis urna cursus eget. Ultrices mi tempus imperdiet nulla malesuada pellentesque. Sed velit dignissim sodales ut eu sem. Massa eget egestas purus viverra. Varius vel pharetra vel turpis. Vitae justo eget magna fermentum iaculis. Arcu cursus euismod quis viverra nibh cras pulvinar. Ultrices tincidunt arcu non sodales. Elit duis tristique sollicitudin nibh sit amet commodo nulla. Curabitur gravida arcu ac tortor dignissim.
+
+Faucibus purus in massa tempor nec feugiat nisl. Est ullamcorper eget nulla facilisi etiam. Ut lectus arcu bibendum at varius vel pharetra vel turpis. A arcu cursus vitae congue mauris. Id neque aliquam vestibulum morbi blandit cursus. Massa placerat duis ultricies lacus sed turpis tincidunt. Lorem sed risus ultricies tristique nulla. A diam maecenas sed enim ut sem viverra aliquet eget. Mattis pellentesque id nibh tortor id aliquet lectus proin nibh. Enim sit amet venenatis urna cursus eget. Eget dolor morbi non arcu. Aliquet nibh praesent tristique magna sit amet purus gravida quis. Adipiscing tristique risus nec feugiat. Sollicitudin nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Amet dictum sit amet justo donec enim diam vulputate ut. At risus viverra adipiscing at in tellus integer feugiat scelerisque. Eget est lorem ipsum dolor. A lacus vestibulum sed arcu. Nisi scelerisque eu ultrices vitae auctor eu. Ullamcorper eget nulla facilisi etiam.
+
+Euismod in pellentesque massa placerat duis. Risus pretium quam vulputate dignissim suspendisse in est ante in. Ac turpis egestas maecenas pharetra convallis posuere morbi leo urna. Metus dictum at tempor commodo ullamcorper. Mauris vitae ultricies leo integer malesuada nunc vel risus. Morbi tristique senectus et netus et malesuada fames ac turpis. Mauris in aliquam sem fringilla ut morbi tincidunt. Praesent semper feugiat nibh sed pulvinar proin gravida hendrerit. Facilisi cras fermentum odio eu. Purus gravida quis blandit turpis cursus in hac habitasse. Vitae tortor condimentum lacinia quis vel eros donec ac odio."""
+    articles = [
+        {'title': 'The latest from Lenovo and my thoughts on it',
+        'content': li,
+    'author': 'Frozen_raspberry'
+    },
+        {'title': 'HP 17: My opinion',
+         'content': li,
+         'author': 'Steven_M'
+         },
+
+        {'title': 'First impressions on my new Apple Computer',
+         'content': li,
+                    'author': 'Joyce05'
+         },
+        {'title': 'Mini Gaming computers, are we there yet?',
+         'content': li,
+         'author': 'Parvati01'
+         }
+    ]
+
+    comps = [cats, reviews, stores, articles]
     # This will pickle all the above data and put it in population_data
     filename = 'population_data'
     outfile = open(filename,'wb')
@@ -258,6 +287,7 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
     cats = new_dict[0]
     reviews = new_dict[1]
     stores = new_dict[2]
+    articles = new_dict[3]
 
     for store in stores:
         add_store(store['name'], store['email'], store['latitude'], store['longitude'], store['rating'])
@@ -276,6 +306,12 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
 
     for review in reviews:
         add_review(review['user'], review['product'], review['rating'], review['content'], review['date'] )
+
+    for article in articles:
+        add_article(article['title'], article['content'], article['author'])
+
+
+
 
 
 
@@ -311,6 +347,13 @@ def add_store(name, email,latitude, longitude, ratings):
     s = Store.objects.get_or_create(name=name,email=email, latitude=latitude, longitude=longitude, ratings=ratings)[0]
     s.save()
     return s
+
+def add_article(title, content, author):
+    user = User.objects.get_or_create(username=author,password='bobspassword')[0]
+
+    a = Article.objects.get_or_create(title=title, content=content, author=user)[0]
+    a.save()
+    return a
 
 
 
