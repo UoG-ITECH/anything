@@ -18,6 +18,8 @@
 
 
 <div class="row h-100 justify-content-center align-items-center">
+    {% include 'rango/messages.html' %}
+
     <div class="col-md-8">
         <h1>Articles Registered</h1>
         <hr>
@@ -40,15 +42,23 @@
                             <td>{{ article.content }}</td>
                             <td>{{ article.date }}</td>
                             <td>{{ article.author }}</td>
+                            <br>
                             <td><a class="btn btn-sm btn-info" href="{% url 'rango:edit_article' article.id %}">Update</a></td>
-                            <td><a class="btn btn-sm btn-danger" href="{%  url 'rango:delete_article' article.id %}">Delete</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'rango:delete_article' article.id %}">Delete</a></td>
                         </tr>
                     {% endfor %}
             </table>
-            <a class="btn btn-secondary" href="{% url 'rango:index' %}">Return to index</a>
         </div>
     </div>
 </div>
+
+<script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 2000)
+  </script> 
 
 {% endblock %}
 
