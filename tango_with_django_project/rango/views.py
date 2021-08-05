@@ -7,9 +7,9 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from datetime import datetime
 
-
-from rango.models import Category, Product, UserProfile, Article
-from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, ArticleForm, StoreForm
+from rango.models import Category, Product, UserProfile, Article, Wishlist
+from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, \
+    ArticleForm, StoreForm
 from rango.bing_search import run_query
 
 
@@ -344,38 +344,37 @@ def visitor_cookie_handler(request):
 
 @login_required
 def add_article(request):
-    if request.user.is_authenticated:        
+    if request.user.is_authenticated:
         if request.method == "POST":
             article_form = ArticleForm(request.POST)
-            
+
             if article_form.is_valid():
                 data = article_form.save(commit=False)
                 data.author = request.user
                 data.save()
-                
+
                 data_picture = article_form.save(commit=False)
                 data_picture.picture = data
-                
+
                 if 'picture' in request.FILES:
                     data_picture.picture = request.FILES['picture']
                 data_picture.save()
-                
+
                 return redirect('/any/article/')
             else:
                 print(article_form.errors)
-                
-                
+
+
         else:
             form = ArticleForm()
         return render(request, 'rango/add_article.html', {'form': form})
     return redirect(reverse('rango:index'))
 
 
-
 @login_required
 def edit_article(request, pk):
     if request.user.is_authenticated:
-        
+
         article = Article.objects.get(id=pk)
         form = ArticleForm(instance=article)
         if request.user == article.author:
@@ -383,21 +382,22 @@ def edit_article(request, pk):
                 form = ArticleForm(request.POST, instance=article)
                 if form.is_valid():
                     form.save()
-                    
+
                     data_picture = form.save(commit=False)
                     data_picture.picture = form
-                    
+
                     if 'picture' in request.FILES:
                         data_picture.picture = request.FILES['picture']
                     data_picture.save()
-                    
+
                     return redirect('/any/article/')
 
-            context = {'form':form}
-            
+            context = {'form': form}
+
         else:
             return redirect('/any/article/')
     return render(request, 'rango/edit_article.html', context)
+
 
 @login_required
 def delete_article(request, pk):
@@ -407,14 +407,15 @@ def delete_article(request, pk):
             if request.method == "POST":
                 article.delete()
                 return redirect('/any/article/')
-            
-            context = {'item':article}
-            
-        
+
+            context = {'item': article}
+
+
         else:
             return redirect('/any/article/')
- 
+
     return render(request, 'rango/delete_article.html', context)
+
 
 @login_required
 def article_show(request):
@@ -422,20 +423,20 @@ def article_show(request):
         article_list = Article.objects.all()
         context_dict = {}
         context_dict['articles'] = article_list
-    
-    return render(request, 'rango/article.html',context=context_dict)                   
-                
+
+    return render(request, 'rango/article.html', context=context_dict)
+
 
 def add_store(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             store_form = StoreForm(request.POST)
-            
+
             if store_form.is_valid():
                 data = store_form.save()
                 data.save()
                 return redirect(reverse('rango:index'))
-        
+
         else:
             form = StoreForm()
         return render(request, 'rango/add_store.html', {'form': form})

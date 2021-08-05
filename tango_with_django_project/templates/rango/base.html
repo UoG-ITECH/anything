@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load rango_template_tags %}
+{% load tags %}
 
 <html lang="en">
 <head>
@@ -40,7 +41,21 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:index' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:about' %}">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:search' %}"><i class="fas fa-search"></i></a></li>
-                <li class="nav-item"><a class="nav-link"><i class="far fa-heart"></i></a></li>
+                <li class="nav-item" id="wishlist-icon"><a class="nav-link">
+                    <i class="far fa-heart"></i></a>
+                    <div id="wishlists">
+                        <h4 style="text-align: center;">Wishlist Items</h4>
+                        {% get_wishlist request %}
+<!--                        {% for item in wish_list %}-->
+<!--                        {% if wish_list|length == 0 %}-->
+<!--                        <p>You have no wish items</p>-->
+<!--                        <hr>-->
+<!--                        {% else %}-->
+<!--                        <p>you have wish item</p>-->
+<!--                        {% endif %}-->
+<!--                        {% endfor %}-->
+                    </div>
+                </li>
             {% if user.is_authenticated %}
 <!--                <li class="nav-item"><a class="nav-link" href="{% url 'rango:restricted' %}">Restricted Page</a></li>-->
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:add_category' %}">Add a New Category</a></li>
