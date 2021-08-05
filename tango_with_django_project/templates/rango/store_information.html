@@ -13,19 +13,22 @@
     <br>
     <div class="card">
         <div class="card-body">
-        <div class="row">
+        <div class="row h-100 justify-content-center align-items-center">
             <div class="col-md-8">
-                <h3 class="text-center">
+                <h3 class="row h-100 justify-content-center align-items-center">
                     {% csrf_token %}
                     {{ store.name }}
                 </h3>
-                <h3>E-mail: {{ store.email }}</h3>
-                <h5>Rating: {{ store.ratings }}</h5>
+                <br>
+                <h3 class="row h-100 justify-content-center align-items-center">E-mail: {{ store.email }}</h3>
+                <br>
+                <h5 class="row h-100 justify-content-center align-items-center">Rating: {{ store.ratings }}</h5>
 
             </div>
         </div>
+        <br>
 
-        <div>
+        <div class="row h-100 justify-content-center align-items-center">
 <br>
 <div class="col-md-6">
    <div id="map" style="width:100%;height:400px;background-color:#CCC;"></div>
@@ -55,13 +58,14 @@
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4lfCLsP3W3-8TwRTVdpp9Gmw43asTWWE&callback=initMap&libraries=&v=weekly" async defer></script>
-        </div>
 
+    </div>
 
 
 
     </div>
     </div>
+    <br>
     <a class="btn btn-danger" href="{% url 'rango:store_show' %}">Back</a>
 </div>
 
