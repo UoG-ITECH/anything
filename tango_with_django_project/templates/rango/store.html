@@ -1,0 +1,54 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Stores
+{% endblock %}
+
+{% block body_block%}
+<div>
+    {% if user.is_authenticated %}
+        howdy {{ user.username }}!
+    {% else %}
+        hey there partner!
+    {% endif %}
+    <br />
+    <strong>{{ boldmessage }}</strong><br />
+</div>
+
+
+<div class="row h-100 justify-content-center align-items-center">
+    <div class="col-md-8">
+        <h1>Store Registered</h1>
+        <hr>
+        <div class="card card-body">
+            <table class="table table-sm-5">
+                    <tr>
+                        <th>Name</th>
+                        <th>E-mail</th>
+                        <th>Rating</th>
+                        <th>Select</th>
+                    </tr>
+
+                    {% for store in stores %}
+
+                        <tr>
+                            <td>{{ store.name }}</td>
+                            <td>{{ store.email }}</td>
+                            <td>{{ store.ratings }}</td>
+                            <td><a class="btn btn-sm btn-info" href="{% url 'rango:store_information' store.id %}">Select</a></td>
+                        </tr>
+                    {% endfor %}
+            </table>
+            <a class="btn btn-secondary" href="{% url 'rango:index' %}">Return to index</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
+{% endblock %}

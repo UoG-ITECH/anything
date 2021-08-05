@@ -40,6 +40,7 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:index' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:about' %}">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:article_view' %}">Article</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'rango:store_show' %}">Store</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:search' %}"><i class="fas fa-search"></i></a></li>
                 <li class="nav-item"><a class="nav-link"><i class="far fa-heart"></i></a></li>
             {% if user.is_authenticated %}
