@@ -21,18 +21,19 @@ Unknown Category
 <div id="page-listing">
 	{% if products %}
 	<center>
-		<ul>
+		
 			{% for product in products %}
 			<li><a href="{% url 'rango:show_computer' product.slug %}">{{ product.name }}</a></li>
 			<br>
 			
 			</li>
 			{% endfor %}
-		</ul></center>
+		</center>
 	<div/>
 	{% else %}
 	<strong>No pages currently in category.</strong>
 	{% endif %}
+	<a class="btn btn-primary" href="{% url 'rango:add_product' category.slug %}">Add Product</a> <br/>
 
 
 </div>
