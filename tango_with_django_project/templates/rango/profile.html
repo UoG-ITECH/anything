@@ -17,13 +17,13 @@
 
     <div class="col-6  col-sm-12 col-md-8 col-lg-8 ">
         <label for="uname">Username:</label>
-        <input type="text" id="uname" name="uname" value="{{ user.username }}"><br>
+        <input type="text" id="uname" name="uname" value="{{ user.username }}" readonly><br>
         <label for="fname">First name:</label>
-        <input type="text" id="fname" name="fname" value="{{ user.first_name }}"><br>
+        <input type="text" id="fname" name="fname" value="{{ user.first_name }}" readonly><br>
         <label for="fname">Last name:</label>
-        <input type="text" id="lname" name="lname" value="{{ user.last_name }}"><br>
+        <input type="text" id="lname" name="lname" value="{{ user.last_name }}" readonly><br>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ user.email }}"><br>
+        <input type="email" id="email" name="email" value="{{ user.email }}" readonly><br>
 
 <!--        TODO: modify profile-->
 <!--        <form action="{% url 'rango:profile' %}" method="post" id="profile_edit" enctype="multipart/form-data">-->

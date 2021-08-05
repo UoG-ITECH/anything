@@ -19,6 +19,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Store(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField(max_length=200)
@@ -34,6 +35,7 @@ class Store(models.Model):
     def __str__(self):
         return self.name
 
+
 class Product(models.Model):
     # Denotes Max length of title and description variables
     MAX_LEN_TITLE = 128
@@ -44,7 +46,8 @@ class Product(models.Model):
     price = models.FloatField(default=0)
     description = models.TextField(max_length=MAX_LEN_DESC, default='')
     slug = models.SlugField()
-    picture = models.ImageField(upload_to='product_images', blank=True)
+    picture = models.ImageField(upload_to='product_images', blank=True,
+                                default="../static/images/upload_pic_for_comp.png")
     store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
 
     def save(self, *args, **kwargs):
@@ -95,7 +98,7 @@ class DummyReview(models.Model):
     dummy_user = models.TextField()
     dummy_product = models.ForeignKey(Product, related_name='dummy_reviews', on_delete=models.CASCADE)
     dummy_rating = models.IntegerField(blank=True)
-    dummy_content= models.TextField()
+    dummy_content = models.TextField()
     dummy_date = models.TextField()
 
 
@@ -113,12 +116,6 @@ class Article(models.Model):
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ForeignKey(Product, on_delete=models.CASCADE)
-    slug = models.SlugField()
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Wishlist, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.products
-
