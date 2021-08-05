@@ -12,6 +12,7 @@ from rango.models import Category, Product, UserProfile, Article, Store, Wishlis
 from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, \
     ArticleForm, StoreForm
 from rango.bing_search import run_query
+from django.contrib import messages
 
 
 class IndexView(View):
@@ -20,6 +21,7 @@ class IndexView(View):
         product_list = Product.objects.order_by('-name')[:5]
 
         context_dict = {}
+
         context_dict['categories'] = category_list
         context_dict['products'] = product_list
 
@@ -348,7 +350,7 @@ def add_article(request):
                 data.author = request.user
                 data.save()
 
-                return redirect('/any/article/')
+                return redirect('/any/article/')   
             else:
                 print(article_form.errors)
         else:
@@ -374,7 +376,7 @@ def edit_article(request, pk):
             context = {'form': form}
 
         else:
-            messages.error(request, 'UPDATE NOT PERMITTED | You are not the author who wrote this.')
+            messages.warning(request, 'Error: The article belongs to another author.')
             return redirect('/any/article/')
 
     return render(request, 'rango/edit_article.html', context)
@@ -391,7 +393,7 @@ def delete_article(request, pk):
 
             context = {'item': article}
         else:
-            messages.error(request, 'DELETE NOT PERMITTED | You are not the author who wrote this.')
+            messages.warning(request, 'Error: The article belongs to another author.')
             return redirect('/any/article/')
 
     return render(request, 'rango/delete_article.html', context)
