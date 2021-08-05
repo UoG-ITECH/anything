@@ -20,7 +20,6 @@ class IndexView(View):
         product_list = Product.objects.order_by('-name')[:5]
 
         context_dict = {}
-        context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
         context_dict['categories'] = category_list
         context_dict['products'] = product_list
 
