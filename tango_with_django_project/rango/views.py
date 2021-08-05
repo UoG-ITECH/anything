@@ -124,6 +124,7 @@ class ShowProductView(View):
         except Product.DoesNotExist:
             context_dict['product'] = product
 
+        #passes image path to read from static files
         context_dict['pathimg'] = "images/" + str(product.slug) + ".jpg"
         print("images/" + str(product.slug) + ".jpg")
         return render(request, 'rango/product.html', context=context_dict)
