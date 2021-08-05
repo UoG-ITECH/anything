@@ -20,7 +20,7 @@ def populate():
     """
 
     #TODO: Delete this before submission, will leave it for easier editing until then
-    """
+
     business = [
         {'name': 'Lenovo A340',
          'description': '''  All-in-One Design: The stunning A340 AIO PC will look great in any room with its elegant base and stand, this 21.5 Inch all-in-one takes up minimal space on your office desk
@@ -28,7 +28,9 @@ Exceptional viewing experience: With an adjustable near-edgeless 22-inch FHD WVA
 Runs like a dream: Even when your workload gets hectic, the A340 multi-tasks seamlessly with Intel Core i3 processing, 4 GB DIMM DDR4 and 1 TB HDD storage
 Your privacy counts: The IdeaCentre All-in-one enables you to livestream with ease while keeping your world private with a TrueBlock privacy shutter to hide your webcam whenever you want to
 Keep organised: With a built-in cable tidy attached to the stand your desk stays clutter-free, even when you connect the bundled accessories - 1 x USB Calliope Keyboard and 1 x USB Calliope Mouse ''',
-         'price': 600.97},
+         'price': 600.97,
+         'store': 'Slorten'
+         },
         {'name': 'ASUS AiO',
          'description': ''' 23.8 inch Full HD IPS-level anti-glare display is the perfect solution to tackle everyday tasks
 Windows 10 Home
@@ -36,6 +38,7 @@ AMD Ryzen 3 3250U Processor (5M Cache, up to 3.5 GHz)
 8GB RAM and 256GB PCIe NVMe M.2 SSD
 Flexible all-in-one weighing in at only 11.9 lb with 720p HD Video Camera ''',
          'price': 529.50,
+         'store': 'Slorten'
          },
         {'name': 'Asus L210',
          'description': ''' Efficient Intel Celeron N4020 Processor (4M Cache, up to 2.8 GHz)
@@ -43,14 +46,16 @@ Flexible all-in-one weighing in at only 11.9 lb with 720p HD Video Camera ''',
 64GB eMMC Flash Storage and 4GB DDR4 RAM
 Windows 10 in S Mode with One Year of Microsoft 365 Personal
 Slim and Portable: 0.7” thin and weighs only 2.2 lbs (battery included) ''',
-         'price': 260.50
+         'price': 260.50,
+         'store': 'Slorten'
          },
         {'name': 'HP 14',
          'description': ''' POWER THROUGH FROM ANYWHERE – Designed to keep you productive and entertained from anywhere, the HP 14-inch Laptop combines long-lasting battery life with a thin and portable design
 FULL HD DISPLAY – Enjoy your favorite content in 1080p for crystal-clear visuals and vibrant image quality. Beyond pixel count, your display lets you see more from anywhere thanks to the micro-edge bezel and anti-glare screen
 INFINITE POSSIBILITIES – Whether you are creating, working, or being entertained, do it all with the supreme performance of the AMD Ryzen 5 5500U Mobile Processor and AMD Radeon Graphics
 MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of 8 GB of RAM. Plus, with 256 GB PCIe NVMe M.2 SSD storage, save all of your photos, videos, and documents while getting up to 15x faster performance than a traditional hard drive ''',
-         'price': 854.50
+         'price': 854.50,
+         'store': 'Slorten'
          }
     ]
 
@@ -61,7 +66,8 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
     Runs like a dream: Even when your workload gets hectic, the A340 multi-tasks seamlessly with Intel Core i3 processing, 4 GB DIMM DDR4 and 1 TB HDD storage
     Your privacy counts: The IdeaCentre All-in-one enables you to livestream with ease while keeping your world private with a TrueBlock privacy shutter to hide your webcam whenever you want to
     Keep organised: With a built-in cable tidy attached to the stand your desk stays clutter-free, even when you connect the bundled accessories - 1 x USB Calliope Keyboard and 1 x USB Calliope Mouse ''',
-         'price': 349.99},
+         'price': 349.99,
+         'store': 'Slorten'},
         {'name': 'ASUS AYZ',
          'description': ''' 23.8 inch Full HD IPS-level anti-glare display is the perfect solution to tackle everyday tasks
     Windows 10 Home
@@ -69,6 +75,7 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
     8GB RAM and 256GB PCIe NVMe M.2 SSD
     Flexible all-in-one weighing in at only 11.9 lb with 720p HD Video Camera ''',
          'price': 749.50,
+         'store': 'Slorten'
          },
         {'name': 'Asus M30',
          'description': ''' Efficient Intel Celeron N4020 Processor (4M Cache, up to 2.8 GHz)
@@ -76,14 +83,16 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
     64GB eMMC Flash Storage and 4GB DDR4 RAM
     Windows 10 in S Mode with One Year of Microsoft 365 Personal
     Slim and Portable: 0.7” thin and weighs only 2.2 lbs (battery included) ''',
-         'price': 360.00
+         'price': 360.00,
+         'store': 'Slorten'
          },
         {'name': 'HP 17 Laptop',
          'description': ''' POWER THROUGH FROM ANYWHERE – Designed to keep you productive and entertained from anywhere, the HP 14-inch Laptop combines long-lasting battery life with a thin and portable design
     FULL HD DISPLAY – Enjoy your favorite content in 1080p for crystal-clear visuals and vibrant image quality. Beyond pixel count, your display lets you see more from anywhere thanks to the micro-edge bezel and anti-glare screen
     INFINITE POSSIBILITIES – Whether you are creating, working, or being entertained, do it all with the supreme performance of the AMD Ryzen 5 5500U Mobile Processor and AMD Radeon Graphics
     MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of 8 GB of RAM. Plus, with 256 GB PCIe NVMe M.2 SSD storage, save all of your photos, videos, and documents while getting up to 15x faster performance than a traditional hard drive ''',
-         'price': 900.50
+         'price': 900.50,
+         'store': 'Sharon Elec.'
          }
     ]
 
@@ -94,7 +103,8 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
         Runs like a dream: Even when your workload gets hectic, the A340 multi-tasks seamlessly with Intel Core i3 processing, 4 GB DIMM DDR4 and 1 TB HDD storage
         Your privacy counts: The IdeaCentre All-in-one enables you to livestream with ease while keeping your world private with a TrueBlock privacy shutter to hide your webcam whenever you want to
         Keep organised: With a built-in cable tidy attached to the stand your desk stays clutter-free, even when you connect the bundled accessories - 1 x USB Calliope Keyboard and 1 x USB Calliope Mouse ''',
-         'price': 1349.99},
+         'price': 1349.99,
+         'store': 'Slorten'},
         {'name': 'ASUS GZ',
          'description': ''' 23.8 inch Full HD IPS-level anti-glare display is the perfect solution to tackle everyday tasks
         Windows 10 Home
@@ -102,6 +112,7 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
         8GB RAM and 256GB PCIe NVMe M.2 SSD
         Flexible all-in-one weighing in at only 11.9 lb with 720p HD Video Camera ''',
          'price': 1749.50,
+         'store': 'PC Universe Glasgow'
          },
         {'name': 'Asus GM3000',
          'description': ''' Efficient Intel Celeron N4020 Processor (4M Cache, up to 2.8 GHz)
@@ -109,14 +120,16 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
         64GB eMMC Flash Storage and 4GB DDR4 RAM
         Windows 10 in S Mode with One Year of Microsoft 365 Personal
         Slim and Portable: 0.7” thin and weighs only 2.2 lbs (battery included) ''',
-         'price': 760.00
+         'price': 760.00,
+         'store': 'Medium Market Glasgow'
          },
         {'name': 'HP 20 Gaming Laptop',
          'description': ''' POWER THROUGH FROM ANYWHERE – Designed to keep you productive and entertained from anywhere, the HP 14-inch Laptop combines long-lasting battery life with a thin and portable design
         FULL HD DISPLAY – Enjoy your favorite content in 1080p for crystal-clear visuals and vibrant image quality. Beyond pixel count, your display lets you see more from anywhere thanks to the micro-edge bezel and anti-glare screen
         INFINITE POSSIBILITIES – Whether you are creating, working, or being entertained, do it all with the supreme performance of the AMD Ryzen 5 5500U Mobile Processor and AMD Radeon Graphics
         MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of 8 GB of RAM. Plus, with 256 GB PCIe NVMe M.2 SSD storage, save all of your photos, videos, and documents while getting up to 15x faster performance than a traditional hard drive ''',
-         'price': 600.50
+         'price': 600.50,
+         'store': 'Gupta Appliances'
          }
     ]
 
@@ -235,7 +248,7 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
     outfile = open(filename,'wb')
     pickle.dump(comps,outfile)
     outfile.close()
-    """
+
     # reads population_data and outputs the contents
     filename = 'population_data'
     infile = open(filename, 'rb')
@@ -246,13 +259,15 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
     reviews = new_dict[1]
     stores = new_dict[2]
 
+    for store in stores:
+        add_store(store['name'], store['email'], store['latitude'], store['longitude'], store['rating'])
     # The code below goes through the cats dictionary, then adds each category,
     # and then adds all the associated pages for that category.
 
     for cat, cat_data in cats.items():
         c = add_cat(cat)
         for p in cat_data['pages']:
-            add_product(c, p['name'],  p['price'], p['description'])
+            add_product(c, p['name'],  p['price'], p['description'], p['store'])
 
     # Print out the categories we have added.
     for c in Category.objects.all():
@@ -264,16 +279,16 @@ MEMORY AND STORAGE – Boost your performance with higher bandwidth, courtesy of
 
 
 
-    for store in stores:
-        add_store(store['name'], store['email'], store['latitude'], store['longitude'], store['rating'])
 
 
 
 
-def add_product(cat, name, price, description):
+
+def add_product(cat, name, price, description, store):
     p = Product.objects.get_or_create(category=cat, name=name)[0]
     p.price = price
     p.description = description
+    p.store = Store.objects.get_or_create(name=store)[0]
     p.save()
     return p
 
