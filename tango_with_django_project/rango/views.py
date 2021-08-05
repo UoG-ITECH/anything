@@ -153,6 +153,7 @@ class AddProductView(View):
                 product = form.save(commit=False)
                 product.category = category
                 product.views = 0
+
                 if 'picture' in request.FILES:
                     product.picture = request.FILES['picture']
                 product.save()
@@ -299,7 +300,8 @@ class AddReviewView(View):
                 review.product = product
                 review.user = request.user
                 review.save()
-                return redirect(reverse('rango:index'))
+
+                return ShowProductView.get(ShowProductView, request, slug)
         else:
             print(form.errors)
 
@@ -346,25 +348,16 @@ def visitor_cookie_handler(request):
 def add_article(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            article_form = ArticleForm(request.POST)
+            article_form = ArticleForm(request.POST, request.FILES)
 
             if article_form.is_valid():
                 data = article_form.save(commit=False)
                 data.author = request.user
                 data.save()
 
-                data_picture = article_form.save(commit=False)
-                data_picture.picture = data
-
-                if 'picture' in request.FILES:
-                    data_picture.picture = request.FILES['picture']
-                data_picture.save()
-
-                return redirect('/any/article/')
+                return redirect('/any/article/')   
             else:
                 print(article_form.errors)
-
-
         else:
             form = ArticleForm()
         return render(request, 'rango/add_article.html', {'form': form})
@@ -379,20 +372,13 @@ def edit_article(request, pk):
         form = ArticleForm(instance=article)
         if request.user == article.author:
             if request.method == 'POST':
-                form = ArticleForm(request.POST, instance=article)
+                form = ArticleForm(request.POST,request.FILES, instance=article)
                 if form.is_valid():
                     form.save()
-
-                    data_picture = form.save(commit=False)
-                    data_picture.picture = form
-
-                    if 'picture' in request.FILES:
-                        data_picture.picture = request.FILES['picture']
-                    data_picture.save()
-
+                    
                     return redirect('/any/article/')
 
-            context = {'form': form}
+            context = {'form':form}
 
         else:
             return redirect('/any/article/')
@@ -409,8 +395,6 @@ def delete_article(request, pk):
                 return redirect('/any/article/')
 
             context = {'item': article}
-
-
         else:
             return redirect('/any/article/')
 
@@ -441,3 +425,28 @@ def add_store(request):
             form = StoreForm()
         return render(request, 'rango/add_store.html', {'form': form})
     return redirect(reverse('rango:index'))
+
+
+def store_show(request):
+    if request.user.is_authenticated:
+        store_list = Store.objects.all()
+        context_dict = {}
+        context_dict['stores'] = store_list
+        
+    return render(request, 'rango/store.html', context=context_dict)
+
+
+def article_view(request):
+    article_list = Article.objects.all()
+    context_dict = {}
+    context_dict['articles'] = article_list
+    
+    return render(request, 'rango/article_view.html',context=context_dict)
+
+def article_information(request, pk):
+    article = Article.objects.get(id=pk)
+
+    context = {'article': article}
+    
+    return render(request, 'rango/article_information.html', context)
+    
