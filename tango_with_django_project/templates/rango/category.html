@@ -16,9 +16,12 @@ Unknown Category
 		<h1>{{ category.name }}</h1>
 		<br/>
 		<div>
-			<strong id="like_count">{{ category.likes }}</strong> likes
 			{% if user.is_authenticated %}
-			
+				{% if category.likes|length == 0 %}
+				<strong >0</strong> likes
+				{% else %}
+				<strong id="like_count">{{ category.likes }}</strong> likes
+				{% endif %}
 			{% endif %}
 		</div>
 	</div>
