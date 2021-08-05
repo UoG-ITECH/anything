@@ -11,7 +11,7 @@
     <div class="container">
         <div class="masthead-subheading">Welcome To ANYTHING!</div>
         <div class="masthead-heading text-uppercase">Which laptop suits you best?</div>
-        <a class="btn btn-primary btn-xl text-uppercase" href="#services">FIND OUT</a>
+        <a class="btn btn-primary btn-xl text-uppercase" href="#check-item">FIND OUT</a>
     </div>
 </header>
 {% endblock %}
@@ -25,7 +25,7 @@
     {% endif %}
 <h1>Check items on ANYTHING</h1>
 
-<div class="container">
+<div class="container" id="check-item">
     <div class="row">
         <div class="col-md-6">
             <div class="card mb-6">
@@ -69,8 +69,6 @@
     </div>
 </div>
 
-
-<img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" />
 {% endblock %}
 
 {% block script_block%}

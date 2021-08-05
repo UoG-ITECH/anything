@@ -1,0 +1,58 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Wishlist
+{% endblock %}
+
+{% block body_block%}
+<div>
+    {% if user.is_authenticated %}
+        howdy {{ user.username }}!
+    {% else %}
+        hey there partner!
+    {% endif %}
+    <br />
+    <strong>{{ boldmessage }}</strong><br />
+</div>
+
+
+<div class="container">
+    <br>
+    <h1>Wishlist</h1>
+    <div class="card" id="backdrop">
+        <div class="card-body">
+            <div class="row">
+                {% if wishlist|length == 0 %}
+                <p>Please add items in your wishlist.</p>
+                {% else %}
+                {% for item in wishlist %}
+                <div class="col-md-4">
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="{{ item.picture.url }}" alt="" class="img-fluid" width="75%">
+                            <h3 class="text-center">{{ item.name }}</h3>
+                            {{ item.price }}
+                            <i class="text-center">{{ item.date }}</i>
+<!--                            <a href="{% url 'rango:article_information' article.id %}">Read More</a>-->
+                        </div>
+                        
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
+{% endblock %}

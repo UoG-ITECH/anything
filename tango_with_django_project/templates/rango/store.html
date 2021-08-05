@@ -36,11 +36,11 @@
                             <td>{{ store.name }}</td>
                             <td>{{ store.email }}</td>
                             <td>{{ store.ratings }}</td>
-                            <td><a class="btn btn-sm btn-info" href="{% url 'rango:store_information' store.id %}">Select</a></td>
+                            <td><a class="btn btn-sm btn-primary" href="{% url 'rango:store_information' store.id %}">Select</a></td>
                         </tr>
                     {% endfor %}
             </table>
-            <a class="btn btn-secondary" href="{% url 'rango:index' %}">Return to index</a>
+            <a class="btn btn-secondary" href="{% url 'rango:index' %}">Return to Home</a>
         </div>
     </div>
 </div>

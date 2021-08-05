@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load rango_template_tags %}
-{% load tags %}
 
 <html lang="en">
 <head>
@@ -40,28 +39,19 @@
             <ul class="navbar-nav text-uppercase ms-auto py-4va py-lg-0">
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:index' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:about' %}">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'rango:article_view' %}">Article</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'rango:store_show' %}">Store</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'rango:article_view' %}"><i class="far fa-comment-dots"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'rango:store_show' %}"><i class="fas fa-store"></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:search' %}"><i class="fas fa-search"></i></a></li>
-                <li class="nav-item" id="wishlist-icon"><a class="nav-link">
+                <li class="nav-item" id="wishlist-icon"><a class="nav-link"  href="{% url 'rango:wishlist_view' %}">
                     <i class="far fa-heart"></i></a>
                     <div id="wishlists">
                         <h4 style="text-align: center;">Wishlist Items</h4>
-                        {% get_wishlist request %}
-<!--                        {% for item in wish_list %}-->
-<!--                        {% if wish_list|length == 0 %}-->
-<!--                        <p>You have no wish items</p>-->
-<!--                        <hr>-->
-<!--                        {% else %}-->
-<!--                        <p>you have wish item</p>-->
-<!--                        {% endif %}-->
-<!--                        {% endfor %}-->
                     </div>
                 </li>
             {% if user.is_authenticated %}
 <!--                <li class="nav-item"><a class="nav-link" href="{% url 'rango:restricted' %}">Restricted Page</a></li>-->
-                <li class="nav-item"><a class="nav-link" href="{% url 'rango:add_category' %}">Add a New Category</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'rango:article_show' %}"><i class="far fa-comment-dots"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'rango:add_category' %}"><i class="fas fa-desktop"></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'rango:article_show' %}"><i class="fas fa-pencil-alt"></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}"><i class="fas fa-unlock"></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:profile' %}" ><i class="far fa-user"></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'rango:index' %}"><i class="fas fa-sign-out-alt"></i></a></li>
@@ -83,6 +73,7 @@
         <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4" style="margin-top:8rem;">
         {% block body_block%}
         {% endblock %}
+            <br><br>
             <footer>
                 <button style="position: absolute; right: 0; bottom:0;" class="btn" onclick='window.scrollTo({top: 0, behavior: "smooth"});'>
                     <img src="{% static 'images/go-to-top.png' %}" alt="GO TO TOP"
