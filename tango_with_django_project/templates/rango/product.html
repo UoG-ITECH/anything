@@ -67,7 +67,7 @@
  
   <div>
      <h2> Reviews </h2>
-      <a class="btn btn-primary" href="{% url 'rango:review' product.slug %}">Leave a review!</a>
+      <a class="btn btn-primary" href="{% url 'rango:review' product.slug %}" style="float:right;">Leave a review!</a>
       <br>
      {% if product.reviews.all%}
      {% for review in product.reviews.all %}
