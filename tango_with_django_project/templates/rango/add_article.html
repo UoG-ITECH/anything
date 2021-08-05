@@ -15,7 +15,7 @@
                 <form action="{% url 'rango:add_article' %}" method="post" id="article_form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{form|crispy}}
-                    <br>
+                    
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a class="btn btn-danger" href="{% url 'rango:article_show' %}">Cancel</a>
                 </form>

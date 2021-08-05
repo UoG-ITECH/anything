@@ -21,20 +21,20 @@
     <br>
     <div class="card">
         <div class="card-body">
-        <div class="row h-100 justify-content-center align-items-center">
-            {% if article.picture.url != "" %}
-                <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-4">
+                {% if article.picture.url != "" %}
                     <img src="{{ article.picture.url }}" alt="{{ article.picture.url }}" class="img-fluid">
+                {% else %}
+                <img src="" alt="" class="img-fluid">
+                {% endif %}
             </div>
-            {% else %}
-            
-            {% endif %}
-            <div class="col-md-6">
-                <h3 >
+            <div class="col-md-8">
+                <h3 class="text-center">
                     {% csrf_token %}
                     {{ article.title }}
                 </h3>
-                <p align="justify">{{ article.content }}</p>
+                <p>{{ article.content }}</p>
                 <h5>Author: {{ article.author }}</h5>
                 <h5>Date: {{ article.date }}</h5>
 
@@ -42,7 +42,6 @@
         </div>
     </div>
     </div>
-    <br>
     <a class="btn btn-danger" href="{% url 'rango:article_view' %}">Back</a>
 </div>
 

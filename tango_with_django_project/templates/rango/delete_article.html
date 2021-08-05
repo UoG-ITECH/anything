@@ -20,8 +20,9 @@
 			<form action="{% url 'rango:delete_article' item.id  %}" method="POST">
 				
 				{% csrf_token %}
+				<a class="btn btn-warning" href="{% url 'rango:article_show' %}">Cancel</a>
+
 				<input class="btn btn-danger" type="submit" name="Confirm">
-                <a class="btn btn-warning" href="{% url 'rango:article_show' %}">Cancel</a>
 			</form>
 		</div>
 	</div>
