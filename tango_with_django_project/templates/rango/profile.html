@@ -25,14 +25,6 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="{{ user.email }}" readonly><br>
 
-<!--        TODO: modify profile-->
-<!--        <form action="{% url 'rango:profile' %}" method="post" id="profile_edit" enctype="multipart/form-data">-->
-<!--            {% csrf_token %}-->
-<!--            {{ form.as_p }}-->
-<!--            <button id="btn" class="btn btn-primary" type="subimt" name='submit'>-->
-<!--                Modify Profile <i class="fas fa-arrow-circle-right"></i>-->
-<!--            </button>-->
-<!--        </form>-->
 
     </div>
         <p>Your website : {{ profile.website }}</p>

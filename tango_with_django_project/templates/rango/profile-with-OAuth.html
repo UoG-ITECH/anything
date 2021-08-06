@@ -1,0 +1,26 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Register
+{% endblock %}
+
+{% block body_block %}
+<container style="display:flex; justify-content:center; align-items: center; margin-bottom: 20px;">
+    <h1 class="row text-uppercase" style="text-align: center;">user profile zone</h1>
+</container>
+
+<div class="row">
+
+        <p>You have logged in with Google Account</p>
+        <p>NO PERMISSION TO EDIT YOUR PROFILE.</p>
+</div>
+
+
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
+{% endblock %}
