@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -437,9 +438,14 @@ def store_show(request):
 
 @login_required
 def wishlist_view(request):
-    if request.method == 'GET':
-        product = request.GET.get('product')
-        print(product)
+    products = Product.objects.filter(users_wishlist = request.user)
+    context_dict = {"wishlist": products}
+    return render(request, 'rango/wishlist_view.html', context_dict)
+    
+    
+#    if request.method == 'GET':
+#        product = request.GET.get('product')
+#        print(product)
     # print(request)
     # wishlist = Wishlist.objects.all()
     # context_dict = {'wishlist': wishlist}
@@ -447,7 +453,23 @@ def wishlist_view(request):
     # print(request.GET.get('product_id'))
     #
     # return render(request, 'rango/wishlist_view.html', context=context_dict)
-    return render(request, 'rango/wishlist_view.html', context={})
+#    return render(request, 'rango/wishlist_view.html', context={})
+
+@login_required
+def add_wishlist_view(request, id):
+    product = get_object_or_404(Product, id=id)
+    
+    if product.users_wishlist.filter(id=request.user.id).exists():
+        product.users_wishlist.remove(request.user)
+        messages.success(request, product.name + " has been removed from your WishList")
+    else:
+        product.users_wishlist.add(request.user)
+        messages.success(request, "Added " + product.name + " to your WishList")
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+        
+
+
+
 
 
 def article_view(request):
