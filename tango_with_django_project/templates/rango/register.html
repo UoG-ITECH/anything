@@ -1,5 +1,6 @@
 {% extends 'rango/base.html' %}
 {% load staticfiles %}
+{% load socialaccount %}
 
 {% block title_block %}
     Register
@@ -23,6 +24,11 @@
             <br>
             <input class="btn btn-primary" type="submit" value="submit" />
         </form>
+        <hr>
+        <a class="btn btn-outline-dark" href="{% provider_login_url 'google' %}" role="button" style="text-transform:none">
+          <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+          Login with Google
+        </a>
     </div>
 
     <div class="col-6 col-md-8 col-lg-6 ">
