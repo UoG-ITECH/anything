@@ -12,7 +12,7 @@ from datetime import datetime
 from rango.models import Category, Product, UserProfile, Article, Store, Wishlist
 from rango.forms import CategoryForm, ProductForm, UserForm, UserProfileForm, ReviewForm, UserProfileEditForm, \
     ArticleForm, StoreForm
-from rango.bing_search import run_query
+
 from django.contrib import messages
 
 
