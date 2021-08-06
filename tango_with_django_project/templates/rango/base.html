@@ -24,7 +24,6 @@
 
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
 </head>
 <body id="page-top">
 <!-- Navigation-->
@@ -42,12 +41,7 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:article_view' %}"><i class="far fa-comment-dots"></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:store_show' %}"><i class="fas fa-store"></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:search' %}"><i class="fas fa-search"></i></a></li>
-                <li class="nav-item" id="wishlist-icon"><a class="nav-link"  href="{% url 'rango:wishlist_view' %}">
-                    <i class="far fa-heart"></i></a>
-                    <div id="wishlists">
-                        <h4 style="text-align: center;">Wishlist Items</h4>
-                    </div>
-                </li>
+                <li class="nav-item" id="wishlist-icon"><a class="nav-link"  href="{% url 'rango:wishlist_view' %}"><i class="far fa-heart"></i></a></li>
             {% if user.is_authenticated %}
 <!--                <li class="nav-item"><a class="nav-link" href="{% url 'rango:restricted' %}">Restricted Page</a></li>-->
                 <li class="nav-item"><a class="nav-link" href="{% url 'rango:add_category' %}"><i class="fas fa-desktop"></i></a></li>
