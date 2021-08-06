@@ -1,5 +1,15 @@
 # 5012-ITECH
 
+## How to launch app 
+
+Simply go to this url 👉🏼👉🏼 http://hwisunbae.pythonanywhere.com
+
+🧑🏻‍💻 Many functionalities are included in this app. Try it yourself! 👩🏻‍💻
+
+
+
+---
+
 ### How to run app locally on your machine
 
 
