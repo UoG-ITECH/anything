@@ -82,7 +82,7 @@ class ShowCategoryView(View):
         context_dict = self.create_context_dict(category_name_slug)
         return render(request, 'rango/category.html', context_dict)
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def post(self, request, category_name_slug):
         context_dict = self.create_context_dict(category_name_slug)
         query = request.POST['query'].strip()
@@ -95,12 +95,12 @@ class ShowCategoryView(View):
 
 
 class AddCategoryView(View):
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def get(self, request):
         form = CategoryForm()
         return render(request, 'rango/add_category.html', {'form': form})
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def post(self, request):
         form = CategoryForm(request.POST)
 
@@ -140,7 +140,7 @@ class AddProductView(View):
 
         return category
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def get(self, request, category_name_slug):
         form = ProductForm()
         category = self.get_category_name(category_name_slug)
@@ -151,7 +151,7 @@ class AddProductView(View):
         context_dict = {'form': form, 'category': category}
         return render(request, 'rango/add_product.html', context_dict)
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def post(self, request, category_name_slug):
         form = ProductForm(request.POST)
         category = self.get_category_name(category_name_slug)
@@ -181,7 +181,7 @@ class AddProductView(View):
 
 
 class ProfileView(View):
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def get(self, request):
         context_dict = {}
         try:
@@ -192,7 +192,7 @@ class ProfileView(View):
 
         return render(request, 'rango/profile.html', {'profile': profile})
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def post(self, request):
         form = UserProfileEditForm(request.POST, instance=request.user)
 
@@ -280,7 +280,7 @@ def user_login(request):
 
 class AddReviewView(View):
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def get(self, request, slug):
         form = ReviewForm()
         product = Product.objects.get(slug=slug)
