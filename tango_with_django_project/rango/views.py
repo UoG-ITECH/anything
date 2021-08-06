@@ -36,7 +36,6 @@ class AboutView(View):
     def get(self, request):
         context_dict = {}
 
-        context_dict['visits'] = request.session['visits']
 
         return render(request, 'rango/about.html', context=context_dict)
 
