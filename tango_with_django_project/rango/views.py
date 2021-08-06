@@ -461,7 +461,7 @@ def add_wishlist_view(request, id):
     
     if product.users_wishlist.filter(id=request.user.id).exists():
         product.users_wishlist.remove(request.user)
-        messages.success(request, product.name + " has been removed from your WishList")
+        messages.error(request, product.name + " has been removed from your WishList")
     else:
         product.users_wishlist.add(request.user)
         messages.success(request, "Added " + product.name + " to your WishList")
