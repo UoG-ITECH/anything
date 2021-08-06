@@ -30,6 +30,13 @@
 `python3 manage.py runserver`
 
 ---
+### How to test app
+Simply run the command in terminal
+
+`python3 manage.py test --pattern="tests.py"`
+
+
+---
 
 ### Contributed by our team
 

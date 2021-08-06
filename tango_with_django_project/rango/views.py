@@ -22,7 +22,7 @@ class IndexView(View):
         product_list = Product.objects.order_by('-name')[:5]
 
         context_dict = {}
-        context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
+
         context_dict['categories'] = category_list
         context_dict['products'] = product_list
 
@@ -125,6 +125,7 @@ class ShowProductView(View):
         except Product.DoesNotExist:
             context_dict['product'] = product
 
+        #passes image path to read from static files
         context_dict['pathimg'] = "images/" + str(product.slug) + ".jpg"
         print("images/" + str(product.slug) + ".jpg")
         return render(request, 'rango/product.html', context=context_dict)
@@ -351,7 +352,7 @@ def add_article(request):
                 data.author = request.user
                 data.save()
 
-                return redirect('/any/article/')
+                return redirect('/any/article/')   
             else:
                 print(article_form.errors)
         else:
