@@ -47,10 +47,11 @@
                 <br/>
 
            <br>
-           {% if wishlist.name ==  %}
-           <a class="btn btn-primary" id="add-to-wishlist" href="{% url 'rango:add_wishlist_view' product.id %}" >
-               Add To Wishlist <i class="far fa-heart"></i></a>
-               <br>
+ 
+            <a class="btn btn-primary" id="add-to-wishlist" href="{% url 'rango:add_wishlist_view' product.id %}" >
+                Add To Wishlist <i class="far fa-heart"></i></a>
+            <br>
+        
            <br/>
            <a class="btn btn-primary btn-xl" id="buy-btn" >Buy from {{product.store}}</a>
            </center>
