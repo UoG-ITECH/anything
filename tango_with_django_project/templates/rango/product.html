@@ -17,22 +17,13 @@
         {% if product %}
             <div class="row">
       <div class="col-6">
-        {% if product.picture %}
-          
-                <center><img src="{{ MEDIA_URL }}{{ product.picture }}"
-                     width="500"
-                     height="500"
-                     margin="100"
-                     alt="{{ product.name }} picture"
-                /></center>
-                <br />
-                {% else %}
+        
                 <center><img src="{% static pathimg %}"
                      width="500"
                      height="500"
                      margin="100"
                      alt="Picture of Computer" /></center>
-                {% endif %}
+                
       </div>
       <div class="col-6">
        <ul>

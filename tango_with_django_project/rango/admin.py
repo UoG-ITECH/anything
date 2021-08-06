@@ -1,5 +1,5 @@
 from django.contrib import admin
-from rango.models import Category, Product, UserProfile, DummyReview, Article, Store
+from rango.models import Category, Product, UserProfile, DummyReview, Article, Store, Review
 from django.conf import settings
 
 
@@ -37,4 +37,5 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, PageAdmin)
 admin.site.register(UserProfile)
 admin.site.register(DummyReview)
+admin.site.register(Review)
 admin.site.register(Article)
