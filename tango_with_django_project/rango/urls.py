@@ -26,6 +26,7 @@ urlpatterns = [
     path('delete_article/<str:pk>/', views.delete_article, name="delete_article"),
     path('store/', views.store_show, name="store_show"),
     path('wishlist_view/', views.wishlist_view, name="wishlist_view"),
+    path('add_wishlist/<int:id>', views.add_wishlist_view, name="add_wishlist_view"),
     # path('add_wishlist/', views.add_wishlist, name="add_wishlist"),
     path('article_view/', views.article_view, name="article_view"),
     path('article_information/<str:pk>/', views.article_information, name="article_information"),
