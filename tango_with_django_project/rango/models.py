@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
@@ -49,6 +50,8 @@ class Product(models.Model):
     picture = models.ImageField(upload_to='product_images', blank=True,
                                 default="../static/images/upload_pic_for_comp.png")
     store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
+    
+    users_wishlist = models.ManyToManyField(get_user_model() ,related_name="user_wishlist", blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
