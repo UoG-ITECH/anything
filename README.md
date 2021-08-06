@@ -37,6 +37,11 @@ Simply run the command in terminal
 
 
 ---
+### Video of how app works
+[ITECH Presentation1.mov.zip](https://github.com/UoG-ITECH/itech-5012/files/6945698/ITECH.Presentation1.mov.zip)
+
+---
+
 
 ### Contributed by our team
 
