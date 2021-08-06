@@ -11,6 +11,7 @@
 
  {% block body_block %}
  <div>
+    {% include 'rango/messages.html' %}
             <center><h2>{{ product.name }}</h2></center>
                 <br><br><br>
         {% if product %}
@@ -46,9 +47,11 @@
                 <br/>
 
            <br>
-           <a class="btn btn-primary" id="add-to-wishlist" href="{% url 'rango:wishlist_view' %}" >
-               Add To Wishlist <i class="far fa-heart"></i></a>
-               <br>
+ 
+            <a class="btn btn-primary" id="add-to-wishlist" href="{% url 'rango:add_wishlist_view' product.id %}" >
+                Add To Wishlist <i class="far fa-heart"></i></a>
+            <br>
+        
            <br/>
            <a class="btn btn-primary btn-xl" id="buy-btn" >Buy from {{product.store}}</a>
            </center>
@@ -101,6 +104,13 @@
       No reviews yet
       {% endif %}
  </div>
+ <script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 2000)
+  </script> 
  {% endblock %}
 
  {% block script_block%}
