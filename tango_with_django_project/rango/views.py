@@ -82,7 +82,7 @@ class ShowCategoryView(View):
         context_dict = self.create_context_dict(category_name_slug)
         return render(request, 'rango/category.html', context_dict)
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def post(self, request, category_name_slug):
         context_dict = self.create_context_dict(category_name_slug)
         query = request.POST['query'].strip()
@@ -95,12 +95,12 @@ class ShowCategoryView(View):
 
 
 class AddCategoryView(View):
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def get(self, request):
         form = CategoryForm()
         return render(request, 'rango/add_category.html', {'form': form})
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def post(self, request):
         form = CategoryForm(request.POST)
 
@@ -140,7 +140,7 @@ class AddProductView(View):
 
         return category
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def get(self, request, category_name_slug):
         form = ProductForm()
         category = self.get_category_name(category_name_slug)
@@ -151,7 +151,7 @@ class AddProductView(View):
         context_dict = {'form': form, 'category': category}
         return render(request, 'rango/add_product.html', context_dict)
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def post(self, request, category_name_slug):
         form = ProductForm(request.POST)
         category = self.get_category_name(category_name_slug)
@@ -181,12 +181,18 @@ class AddProductView(View):
 
 
 class ProfileView(View):
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def get(self, request):
-        profile = UserProfile.objects.get(user__username=request.user.username)
+        context_dict = {}
+        try:
+            profile = UserProfile.objects.get(user__username=request.user.username)
+
+        except UserProfile.DoesNotExist:
+            return render(request, 'rango/profile-with-OAuth.html')
+
         return render(request, 'rango/profile.html', {'profile': profile})
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def post(self, request):
         form = UserProfileEditForm(request.POST, instance=request.user)
 
@@ -201,7 +207,7 @@ class ProfileView(View):
 
 
 
-@login_required
+@login_required(login_url='/any/register/')
 def register_profile(request):
     form = UserProfileForm()
 
@@ -274,7 +280,7 @@ def user_login(request):
 
 class AddReviewView(View):
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url='/any/register/'))
     def get(self, request, slug):
         form = ReviewForm()
         product = Product.objects.get(slug=slug)
@@ -306,12 +312,12 @@ class AddReviewView(View):
         return render(request, 'rango/review.html', context=context_dict)
 
 
-@login_required
+@login_required(login_url='/any/register/')
 def restricted(request):
     return render(request, 'rango/restricted.html')
 
 
-@login_required
+@login_required(login_url='/any/register/')
 def user_logout(request):
     logout(request)
     return redirect(reverse('rango:index'))
@@ -341,7 +347,7 @@ def visitor_cookie_handler(request):
     request.session['visits'] = visits
 
 
-@login_required
+@login_required(login_url='/any/register/')
 def add_article(request):
     if request.user.is_authenticated:
         if request.method == "POST":
@@ -361,7 +367,7 @@ def add_article(request):
     return redirect(reverse('rango:index'))
 
 
-@login_required
+@login_required(login_url='/any/register/')
 def edit_article(request, pk):
     if request.user.is_authenticated:
 
@@ -384,7 +390,7 @@ def edit_article(request, pk):
     return render(request, 'rango/edit_article.html', context)
 
 
-@login_required
+@login_required(login_url='/any/register/')
 def delete_article(request, pk):
     if request.user.is_authenticated:
         article = Article.objects.get(id=pk)
@@ -401,7 +407,7 @@ def delete_article(request, pk):
     return render(request, 'rango/delete_article.html', context)
 
 
-@login_required
+@login_required(login_url='/any/register/')
 def article_show(request):
     if request.user.is_authenticated:
         article_list = Article.objects.all()
@@ -428,15 +434,15 @@ def add_store(request):
 
 
 def store_show(request):
+    context_dict = {}
     if request.user.is_authenticated:
         store_list = Store.objects.all()
-        context_dict = {}
         context_dict['stores'] = store_list
 
     return render(request, 'rango/store.html', context=context_dict)
 
 
-@login_required
+@login_required(login_url='/any/register/')
 def wishlist_view(request):
     products = Product.objects.filter(users_wishlist = request.user)
     context_dict = {"wishlist": products}
@@ -455,7 +461,7 @@ def wishlist_view(request):
     # return render(request, 'rango/wishlist_view.html', context=context_dict)
 #    return render(request, 'rango/wishlist_view.html', context={})
 
-@login_required
+@login_required(login_url='/any/register/')
 def add_wishlist_view(request, id):
     product = get_object_or_404(Product, id=id)
     

@@ -17,6 +17,12 @@
 
 <p>
     Not registered?
-    <a href="{% url 'registration_register' %}}">Register here!</a>
+    <a href="{% url 'registration_register' %}">Register here!</a>
 </p>
+{% endblock %}
+
+{% block script_block%}
+<script>
+    document.body.querySelector('#mainNav').classList.add('navbar-shrink')
+</script>
 {% endblock %}
