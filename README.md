@@ -1,43 +1,13 @@
-# 5012-ITECH
+# Anything You Want 
 
-## How to launch app 
+# 💡 Topic
 
-Simply go to this url 👉🏼👉🏼 http://hwisunbae.pythonanywhere.com
+- A platform / community website that resolve CRUD operations to let users **search suitable laptops** to use for themselves
+- Integrating google sign-in using `Google APIs` OAuth 2.0
 
-🧑🏻‍💻 Many functionalities are included in this app. Try it yourself! 👩🏻‍💻
+# 📝 Summary
 
-
-
----
-
-### How to run app locally on your machine
-
-
-1. Clone the repository
-
-`git clone https://github.com/UoG-ITECH/itech-5012.git`
-   
-2. Go inside the directory and crate a virtual environment
-
-`git python3 -m venv anyname_for_virtualenviornment`
-
-3. You see newly created virtual environment inside the directory
-   
-
-4. Make sure you do not see anything when `pip freeze` is executed
-   
-
-5. Install dependencies listed inside `requirements.txt`
-
-`pip install -r requirements.txt`
-   
-6. Using python3, makemigrate and apply the migration to the app
-
-`python3 manage.py makemigrations rango`
-
-`python3 manage.py migrate`
-
-`python3 manage.py runserver`
+This platform offers a variety of products that users can read reviews about to figure out the **best laptops for their needs**. It is basically a place where people can share their thoughts on different kinds of laptops (student laptop, gaming laptop, etc). Furthermore, registered stores are displayed with ratings, email and location to give users some suggestions on where to buy laptops.
 
 ---
 ### How to test app

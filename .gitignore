@@ -12,3 +12,4 @@ venv/
 *.pyc
 credentials.txt
 profile_images/
+.env
